@@ -18,7 +18,6 @@ const morgan = require('morgan')
 
 
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
-app.use(morgan('dev'));
 app.use(express.json());
 
 app.listen(PORT, () =>{
