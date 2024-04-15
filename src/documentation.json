@@ -1,0 +1,33 @@
+
+{
+    "openapi" : "3.1.0",
+    "info" : {
+        "title": "Titre de votre API [REQUIS]",
+        "summary": "Une courte description de ce que fait votre API",
+        "description": "Une description plus détaillé de ce que fait votre API",
+        "contact": {
+            "name": "API Support",
+            "url": "https://www.example.com/support",
+            "email": "support@example.com"
+        },
+        "version": "1.0.1 [REQUIS - Version de votre API]"
+    },
+    "servers": [
+        {
+            "url": "http://api.profs.ca",
+            "description": "Serveur en ligne"
+        },
+        {
+            "url": "http://127.0.0.1:3000/",
+            "description": "Serveur de développement"
+        }
+    ],
+    "paths" : {
+        "route1" : ""
+    },
+    "components" : {
+        "schemas": {
+            "nom_schema" : ""
+        }
+    }
+}
