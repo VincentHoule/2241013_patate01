@@ -14,8 +14,6 @@ const swaggerOptions = {
 const app = express();
 const PORT = 3000;
 
-const morgan = require('morgan')
-
 
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
 app.use(express.json());
