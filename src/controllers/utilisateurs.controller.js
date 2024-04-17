@@ -52,6 +52,10 @@ exports.voirCle = (req, res) => {
         message += "Le courriel doit être valide selon le format. "
     }
 
+    if (!req.body.mot_de_passe || (req.body.mot_de_passe.length <= 0 && req.body.mot_de_passe.length > 254)) {
+        message += "Le mot de passe doit être valide selon le format. "
+    }
+
     if (req.params.nouvelle.length > 1) {
         message += "Le paramêtre nouvelle doit être égale à 1 pour changer de cle. "
     }

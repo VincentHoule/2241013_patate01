@@ -61,7 +61,7 @@ Utilisateurs.voirCle = (courriel, mot_de_passe) => {
             bcrypt.compare(mot_de_passe, resultat[0].mot_de_passe)
                 .then(res => {
                     console.log(resultat)
-                    resolve(resultat);
+                    resolve(resultat.rows);
                 })
                 .catch(res => {
                     res.status(404);
