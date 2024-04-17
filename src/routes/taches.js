@@ -16,18 +16,18 @@ router.get('/:id', authentification, (req, res) => {
     tachesController.detailTache(req, res);
 });
 
-router.post('/', (req, res) => {
+router.post('/', authentification, (req, res) => {
     
     tachesController.ajouterTache(req, res);
 });
 
 
-router.put('/:id', (req, res) => {
+router.put('/:id', authentification, (req, res) => {
     
     tachesController.modifierTache(req, res);
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', authentification, (req, res) => {
     
     tachesController.supprimerTache(req, res);
 })

@@ -4,12 +4,13 @@ const bcrypt = require('bcrypt');
 
 const Utilisateurs = (utilisateurs) => {
     this.nom = utilisateurs.nom;
+    this.prenom = utilisateurs.nom;
     this.courriel = utilisateurs.courriel;
     this.mot_de_passe = utilisateurs.mot_de_passe;
 }
 
 
-Utilisateurs.ajouterUnUtilisateur = (nom, courriel, mot_de_passe) => {
+Utilisateurs.ajouterUnUtilisateur = (nom, prenom, courriel, mot_de_passe) => {
     return new Promise((resolve, reject) => {
 
         const costFactor = 10;
@@ -17,9 +18,9 @@ Utilisateurs.ajouterUnUtilisateur = (nom, courriel, mot_de_passe) => {
             .then(hash => {
                 console.log('Hash: ', hash)
                 let api = uuidv4.v4();
-                const requete = `INSERT INTO utilisateurs (nom, courriel, mot_de_passe, api)
-            VALUES (?, ?, ?, ?)`;
-                const params = [nom, courriel, hash, api];
+                const requete = `INSERT INTO utilisateurs (nom, prenom, courriel, cle_api, password)
+            VALUES (?, ?, ?, ?, ?)`;
+                const params = [nom, prenom, courriel, api, hash];
 
                 sql.query(requete, params, (erreur, resultat) => {
                     if (erreur) {
@@ -36,7 +37,7 @@ Utilisateurs.ajouterUnUtilisateur = (nom, courriel, mot_de_passe) => {
 
 Utilisateurs.validationCle = (cleApi) => {
     return new Promise((resolve, reject) => {
-        const requete = 'SELECT COUNT(*) AS nbUtilisateur FROM utilisateurs u WHERE api = ?; ';
+        const requete = 'SELECT COUNT(*) AS nbUtilisateur FROM utilisateurs u WHERE cle_api = ?; ';
         const parametres = [cleApi];
 
         sql.query(requete, parametres, (erreur, resultat) => {
@@ -52,7 +53,7 @@ Utilisateurs.validationCle = (cleApi) => {
 Utilisateurs.voirCle = (courriel, mot_de_passe) => {
     return new Promise((resolve, reject) => {
 
-        const requete = 'SELECT api, mot_de_passe FROM utilisateurs WHERE courriel = ?;';
+        const requete = 'SELECT cle_api, password FROM utilisateurs WHERE courriel = ?;';
         const parametres = [courriel];
 
         sql.query(requete, parametres, (erreur, resultat) => {
@@ -66,7 +67,7 @@ Utilisateurs.voirCle = (courriel, mot_de_passe) => {
                 })
                 .catch(res => {
                     res.status(404);
-                    res.send({ message: "mauvais mot de passe" });
+                    res.send({ message: "mauvais mot de passe. " });
                     return;
                 })
 
@@ -79,14 +80,23 @@ Utilisateurs.nouvelleCle = (courriel, mot_de_passe) => {
     return new Promise((resolve, reject) => {
 
         let api = uuidv4.v4();
-        const requete = 'UPDATE utilisateurs SET api = ? WHERE courriel = ?;';
+        const requete = 'UPDATE utilisateurs SET cle_api = ? WHERE courriel = ?;';
         const parametres = [api, courriel];
 
         sql.query(requete, parametres, (erreur, resultat) => {
             if (erreur) {
                 reject(erreur);
             }
-            resolve(resultat);
+            bcrypt.compare(mot_de_passe, resultat[0].mot_de_passe)
+            .then(res => {
+                console.log(resultat)
+                resolve(resultat);
+            })
+            .catch(res => {
+                res.status(404);
+                res.send({ message: "mauvais mot de passe. " });
+                return;
+            })
         })
 
     })

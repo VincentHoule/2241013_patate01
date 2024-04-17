@@ -15,8 +15,10 @@ const app = express();
 const PORT = 3000;
 
 
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
+app.use('/tachesMemoire/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
 app.use(express.json());
+app.use('/tachesMemoire/taches', require('./src/routes/taches'));
+app.use('/tachesMemoire/utilisateurs', require('./src/routes/utilisateurs'));
 
 app.listen(PORT, () =>{
     console.log('Serveur partie')

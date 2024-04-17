@@ -1,76 +1,69 @@
-const Pokemons = require("../models/taches.model.js");
+const Taches = require("../models/taches.model.js");
 
-exports.trouverUnPokemon = (req, res) => {
+exports.detailTache = (req, res) => {
 
     // Teste si le paramètre id est présent et valide
     if (!req.params.id || parseInt(req.params.id) <= 0) {
         res.status(400);
         res.send({
-            message: "L'id du pokemon est obligatoire et doit être supérieur à 0"
+            message: "L'id de la tâches est obligatoire et doit être supérieur à 0"
         });
         return;
     }
 
     // Appel à la fonction trouverUnpokemon dans le modèle
-    Pokemons.trouverUnPokemon(req.params.id)
+    Taches.detailTache(req.params.id)
         // Si c'est un succès
-        .then((Pokemons) => {
+        .then((Taches) => {
             // S'il n'y a aucun résultat, on retourne un message d'erreur avec le code 404
-            if (!Pokemons[0]) {
+            if (!Taches[0]) {
                 res.status(404);
                 res.send({
-                    message: `pokemon introuvable avec l'id ${req.params.id}`
+                    message: `tâches introuvable avec l'id ${req.params.id}`
                 });
                 return;
             }
             // Sinon on retourne le premier objet du tableau de résultat car on ne devrait avoir qu'un pokemon par id
-            res.send(Pokemons[0]);
+            res.send(Taches[0]);
         })
         // S'il y a eu une erreur au niveau de la requête, on retourne un erreur 500 car c'est du serveur que provient l'erreur.
         .catch((erreur) => {
             console.log('Erreur : ', erreur);
             res.status(500)
             res.send({
-                message: "Erreur lors de la récupération du pokemon avec l'id " + req.params.id
+                message: "Erreur lors de la récupération de la tâche avec l'id " + req.params.id
             });
         });
 };
 
-exports.trouverUnType = (req, res) => {
+exports.listeTache = (req, res) => {
     // Teste si le paramètre id est présent et valide
-    if (!req.query.type || req.query.type == "") {
+    if (!req.params.utilisateur_id || parseInt(req.params.utilisateur_id) <= 0) {
         res.status(400);
         res.send({
-            message: "Le type ne doit pas être vide"
+            message: "L'id de l'utilisateur est obligatoire et doit être supérieur à 0"
         });
         return;
     }
 
-    if (!req.query.page || parseInt(req.query.page) <= 0) {
-        res.status(400);
-        res.send({
-            message: "La page ne doit pas être vide ou égale à 0 et moins"
-        });
-        return;
-    }
 
-    Pokemons.trouverUnType(req.query.type)
-        .then((Pokemons) => {
+    Taches.listeTache(req.query.utilisateur_id)
+        .then((Taches) => {
             // S'il n'y a aucun résultat, on retourne un message d'erreur avec le code 404
-            if (!Pokemons[0]) {
+            if (!Taches[0]) {
                 res.status(404);
                 res.send({
-                    message: `pokemon introuvable ${req.query.type}`
+                    message: `tâches introuvable ${req.query.utilisateur_id}`
                 });
                 return;
             }
             //
             res.send({
-                Pokemons: Pokemons.slice(req.query.page * 25 - 25, req.query.page * 25),
+                Taches: Taches.slice(req.query.page * 25 - 25, req.query.page * 25),
                 type: req.query.type,
-                Nombre_de_Pokemons: Pokemons.length,
+                Nombre_de_Taches: Taches.length,
                 page: parseInt(req.query.page),
-                Nombre_de_pages: Math.ceil(Pokemons.length / 25)
+                Nombre_de_pages: Math.ceil(Taches.length / 25)
             });
 
         })
@@ -79,12 +72,12 @@ exports.trouverUnType = (req, res) => {
             console.log('Erreur : ', erreur);
             res.status(500)
             res.send({
-                message: "Erreur lors de la récupération du pokemon avec le type" + req.query.type
+                message: "Erreur lors de la récupération des tâches avec l'utilisateur" + req.query.utilisateur_id
             });
         });
 };
 
-exports.ajouterUnPokemon = (req, res) => {
+exports.ajouterTache = (req, res) => {
 
     var message = ""; // Variable de message d'erreur
 
@@ -116,7 +109,7 @@ exports.ajouterUnPokemon = (req, res) => {
         return;
     }
 
-    Pokemons.ajouterUnPokemon(req.body.nom, req.body.type_primaire, req.body.type_secondaire,
+    Taches.ajouterTache(req.body.nom, req.body.type_primaire, req.body.type_secondaire,
         req.body.pv, req.body.attaque, req.body.defense)
         .then(() => {
             
@@ -136,7 +129,7 @@ exports.ajouterUnPokemon = (req, res) => {
 
 };
 
-exports.modifierUnPokemon = (req, res) => {
+exports.modifierTache = (req, res) => {
 
     var message = ""; // Message d'erreur
 
@@ -171,14 +164,14 @@ exports.modifierUnPokemon = (req, res) => {
         return;
     }
 
-    Pokemons.modifierUnPokemon(req.body.nom, req.body.type_primaire, req.body.type_secondaire,
+    Taches.modifierTache(req.body.nom, req.body.type_primaire, req.body.type_secondaire,
         req.body.pv, req.body.attaque, req.body.defense, req.params.id)
         .then(() => {
 
             // Envoie du succès de la requete
             res.send({
                 Message: "Le pokemon id " + req.params.id + " a été modifié avec succès",
-                Pokemons: req.body
+                Taches: req.body
             });
         })
         .catch((erreur) => {
@@ -191,7 +184,7 @@ exports.modifierUnPokemon = (req, res) => {
         });
 };
 
-exports.supprimerUnPokemon = (req, res) => {
+exports.supprimerTache = (req, res) => {
     // Protection contre les paramêtres invalides
     if (!req.params.id || parseInt(req.params.id) <= 0) {
         res.status(400);
@@ -202,9 +195,9 @@ exports.supprimerUnPokemon = (req, res) => {
         });
         return;
     }
-    info = Pokemons.trouverUnPokemon(req.params.id);
+    info = Taches.detailTache(req.params.id);
 
-    Pokemons.supprimerUnPokemon(req.params.id)
+    Taches.supprimerTache(req.params.id)
         .then(() => {
             // Envoie du succès de la requete
             res.send({
