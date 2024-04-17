@@ -1,5 +1,5 @@
 // À ajuster selon la structure
-const sql = require("../config/db.js");
+const sql = require("../config/pg_db");
 const Utilisateurs = require("./utilisateurs.model.js");
 
 // constructeur
