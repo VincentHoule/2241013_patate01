@@ -1,5 +1,6 @@
 const sql = require("../config/pg_db.js");
 const bcrypt = require('bcrypt');
+const uuidv4 = require('uuid');
 
 const Utilisateurs = (utilisateurs) => {
     this.nom = utilisateurs.nom;
