@@ -1,4 +1,4 @@
-const sql = require("../config/pg_db");
+const sql = require("../config/pg_db.js");
 const bcrypt = require('bcrypt');
 
 const Utilisateurs = (utilisateurs) => {

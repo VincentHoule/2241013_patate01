@@ -14,8 +14,10 @@ const swaggerOptions = {
 const app = express();
 const PORT = 3000;
 
+const morgan = require('morgan')
 
 app.use('/tachesMemoire/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
+app.use(morgan('dev'));
 app.use(express.json());
 app.use('/tachesMemoire/taches', require('./src/routes/taches'));
 app.use('/tachesMemoire/utilisateurs', require('./src/routes/utilisateurs'));
