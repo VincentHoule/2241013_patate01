@@ -1,4 +1,3 @@
-const uuidv4 = require('uuid');
 const sql = require("../config/db.js");
 const bcrypt = require('bcrypt');
 
@@ -18,8 +17,7 @@ Utilisateurs.ajouterUnUtilisateur = (nom, prenom, courriel, mot_de_passe) => {
             .then(hash => {
                 console.log('Hash: ', hash)
                 let api = uuidv4.v4();
-                const requete = `INSERT INTO utilisateurs (nom, prenom, courriel, cle_api, password)
-            VALUES (?, ?, ?, ?, ?)`;
+                const requete = 'INSERT INTO utilisateurs (nom, prenom, courriel, cle_api, password) VALUES ($1, $2, $3, $4, $5)';
                 const params = [nom, prenom, courriel, api, hash];
 
                 sql.query(requete, params, (erreur, resultat) => {
@@ -37,7 +35,7 @@ Utilisateurs.ajouterUnUtilisateur = (nom, prenom, courriel, mot_de_passe) => {
 
 Utilisateurs.validationCle = (cleApi) => {
     return new Promise((resolve, reject) => {
-        const requete = 'SELECT COUNT(*) AS nbUtilisateur FROM utilisateurs u WHERE cle_api = ?; ';
+        const requete = 'SELECT COUNT(*) AS nbUtilisateur FROM utilisateurs u WHERE cle_api = $1; ';
         const parametres = [cleApi];
 
         sql.query(requete, parametres, (erreur, resultat) => {
@@ -53,7 +51,7 @@ Utilisateurs.validationCle = (cleApi) => {
 Utilisateurs.voirCle = (courriel, mot_de_passe) => {
     return new Promise((resolve, reject) => {
 
-        const requete = 'SELECT cle_api, password FROM utilisateurs WHERE courriel = ?;';
+        const requete = 'SELECT cle_api, password FROM utilisateurs WHERE courriel = $1;';
         const parametres = [courriel];
 
         sql.query(requete, parametres, (erreur, resultat) => {
