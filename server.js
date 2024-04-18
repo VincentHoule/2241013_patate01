@@ -26,5 +26,5 @@ router.get('/', (req, res) => {
     res.send("ping")
 } )
 app.listen(PORT, () =>{
-    console.log('Serveur partie')
+    console.log('Serveur partie sur le port' + PORT)
 });
