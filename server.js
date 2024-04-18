@@ -21,7 +21,10 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use('/tachesMemoire/taches', require('./src/routes/taches'));
 app.use('/tachesMemoire/utilisateurs', require('./src/routes/utilisateurs'));
-
+const router = express.Router();
+router.get('/', (req, res) => {
+    console.log('ping');
+} )
 app.listen(PORT, () =>{
     console.log('Serveur partie')
 });

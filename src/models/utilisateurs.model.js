@@ -78,25 +78,27 @@ Utilisateurs.voirCle = (courriel, mot_de_passe) => {
 Utilisateurs.nouvelleCle = (courriel, mot_de_passe) => {
     return new Promise((resolve, reject) => {
 
-        let api = uuidv4.v4();
-        const requete = 'UPDATE utilisateurs SET cle_api = ? WHERE courriel = ?;';
-        const parametres = [api, courriel];
-
-        sql.query(requete, parametres, (erreur, resultat) => {
-            if (erreur) {
-                reject(erreur);
-            }
-            bcrypt.compare(mot_de_passe, resultat[0].mot_de_passe)
-            .then(res => {
-                console.log(resultat)
-                resolve(resultat);
-            })
-            .catch(res => {
-                res.status(404);
-                res.send({ message: "mauvais mot de passe. " });
-                return;
+        bcrypt.compare(mot_de_passe, resultat[0].mot_de_passe)
+        .then(res => {
+            console.log(resultat)
+            resolve(resultat);
+            let api = uuidv4.v4();
+            const requete = 'UPDATE utilisateurs SET cle_api = ? WHERE courriel = ?;';
+            const parametres = [api, courriel];
+    
+            sql.query(requete, parametres, (erreur, resultat) => {
+                if (erreur) {
+                    reject(erreur);
+                }
+               
             })
         })
+        .catch(res => {
+            res.status(404);
+            res.send({ message: "mauvais mot de passe. " });
+            return;
+        })
+       
 
     })
 }
