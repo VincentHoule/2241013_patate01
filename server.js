@@ -23,7 +23,7 @@ app.use('/tachesMemoire/taches', require('./src/routes/taches'));
 app.use('/tachesMemoire/utilisateurs', require('./src/routes/utilisateurs'));
 const router = express.Router();
 router.get('/', (req, res) => {
-    console.log('ping');
+    res.send("ping")
 } )
 app.listen(PORT, () =>{
     console.log('Serveur partie')
