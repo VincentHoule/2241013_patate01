@@ -18,7 +18,7 @@ Utilisateurs.ajouterUnUtilisateur = (nom, prenom, courriel, mot_de_passe) => {
             .then(hash => {
                 console.log('Hash: ', hash)
                 let api = uuidv4.v4();
-                const requete = `INSERT INTO utilisateurs (nom, prenom, courriel, cle_api, password) VALUES ($1, $2, $3, $4, $5)`;
+                const requete = `INSERT INTO utilisateurs (nom, prenom, courriel, cle_api, password) VALUES ($1, $2, $3, $4, $5);`;
                 const params = [nom, prenom, courriel, api, hash];
 
                 sql.query(requete, params, (erreur, resultat) => {
