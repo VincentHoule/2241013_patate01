@@ -56,21 +56,22 @@ exports.voirCle = (req, res) => {
         message += "Le mot de passe doit être valide selon le format. "
     }
 
-    if (req.params.nouvelle.length > 1) {
-        message += "Le paramêtre nouvelle doit être égale à 1 pour changer de cle. "
-    }
-
-
     if (message != "") {
         res.status(404);
         res.send({ message: `${message}` });
         return;
     }
-
-    if (req.params.nouvelle == "1") {
-        Utilisateurs.nouvelleCle(req.body.courriel, req.body.mot_de_passe);
-
+    if(req.params.nouvelle){
+        if (req.params.nouvelle == "1") {
+        
+            Utilisateurs.nouvelleCle(req.body.courriel, req.body.mot_de_passe);
+    
+        }
+        else{
+            message += "Le paramêtre nouvelle doit être égale à 1 pour changer de cle. "
+        }
     }
+    
 
     Utilisateurs.voirCle(req.body.courriel, req.body.mot_de_passe)
         .then((resultat) => {

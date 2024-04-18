@@ -4,9 +4,9 @@ const uuidv4 = require('uuid');
 
 const Utilisateurs = (utilisateurs) => {
     this.nom = utilisateurs.nom;
-    this.prenom = utilisateurs.nom;
+    this.prenom = utilisateurs.prenom;
     this.courriel = utilisateurs.courriel;
-    this.mot_de_passe = utilisateurs.mot_de_passe;
+    this.mot_de_passe = utilisateurs.password;
 }
 
 
