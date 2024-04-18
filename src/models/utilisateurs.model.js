@@ -59,9 +59,8 @@ Utilisateurs.voirCle = (courriel, mot_de_passe) => {
             if (erreur) {
                 reject(erreur);
             }
-            bcrypt.compare(mot_de_passe, resultat[0].password)
+            bcrypt.compare(mot_de_passe, resultat.rows[0].password)
                 .then(res => {
-                    console.log(resultat)
                     resolve(resultat.rows);
                 })
                 .catch(res => {
@@ -78,7 +77,7 @@ Utilisateurs.voirCle = (courriel, mot_de_passe) => {
 Utilisateurs.nouvelleCle = (courriel, mot_de_passe) => {
     return new Promise((resolve, reject) => {
 
-        bcrypt.compare(mot_de_passe, resultat[0].mot_de_passe)
+        bcrypt.compare(mot_de_passe, resultat[0].password)
         .then(res => {
             console.log(resultat)
             resolve(resultat);

@@ -31,11 +31,11 @@ SousTaches.ajouterSousTache = (utilisateur_id, titre, description, date_debut, d
 
 }
 
-SousTaches.modifierSousTache = (utilisateur_id, titre, description, date_debut, date_echeance, complete, id) => {
+SousTaches.modifierSousTache = (id, tache_id, titre, complete) => {
     return new Promise((resolve, reject) => {
 
-        const requete = 'UPDATE pokemon SET utilisateur_id = $1, titre = $2, description = $3, date_debut = $4, date_echeance = $5, complete = $6 WHERE id = $7 ';
-        const params = [utilisateur_id, titre, description, date_debut, date_echeance, complete, parseInt(id)];
+        const requete = 'UPDATE sousTaches SET tache_id = $1, titre = $2, complete = $3 WHERE id = $4 ';
+        const params = [parseInt(tache_id), titre, complete, parseInt(id)];
 
         sql.query(requete, params, (erreur, resultat) => {
             if (erreur) {
@@ -48,10 +48,10 @@ SousTaches.modifierSousTache = (utilisateur_id, titre, description, date_debut, 
     });
 };
 
-SousTaches.supprimerTache = (id) => {
+SousTaches.supprimerSousTache = (id) => {
     return new Promise((resolve, reject) => {
 
-        const requete = 'DELETE FROM taches WHERE id = $1;';
+        const requete = 'DELETE FROM sousTaches WHERE id = $1;';
         const params = [id];
 
         sql.query(requete, params, (erreur, resultat) => {
