@@ -56,11 +56,7 @@ exports.voirCle = (req, res) => {
         message += "Le mot de passe doit être valide selon le format. "
     }
 
-    if (message != "") {
-        res.status(404);
-        res.send({ message: `${message}` });
-        return;
-    }
+
     if(req.params.nouvelle){
         if (req.params.nouvelle == "1") {
         
@@ -70,6 +66,12 @@ exports.voirCle = (req, res) => {
         else{
             message += "Le paramêtre nouvelle doit être égale à 1 pour changer de cle. "
         }
+    }
+
+    if (message != "") {
+        res.status(404);
+        res.send({ message: `${message}` });
+        return;
     }
     
 

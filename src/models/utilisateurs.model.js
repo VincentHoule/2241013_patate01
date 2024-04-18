@@ -59,7 +59,7 @@ Utilisateurs.voirCle = (courriel, mot_de_passe) => {
             if (erreur) {
                 reject(erreur);
             }
-            bcrypt.compare(mot_de_passe, resultat[0].mot_de_passe)
+            bcrypt.compare(mot_de_passe, resultat[0].password)
                 .then(res => {
                     console.log(resultat)
                     resolve(resultat.rows);

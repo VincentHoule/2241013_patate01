@@ -1,6 +1,7 @@
 const SousTaches = require("../models/sousTaches.model.js");
 
-exports.detailTache = (req, res) => {
+
+exports.detailSousTache = (req, res) => {
 
     // Teste si le paramètre id est présent et valide
     if (!req.params.id || parseInt(req.params.id) <= 0) {
@@ -12,11 +13,11 @@ exports.detailTache = (req, res) => {
     }
 
     // Appel à la fonction trouverUnpokemon dans le modèle
-    SousTaches.detailTache(req.params.id)
+    Taches.detailSousTache(req.params.id)
         // Si c'est un succès
-        .then((SousTaches) => {
+        .then((Taches) => {
             // S'il n'y a aucun résultat, on retourne un message d'erreur avec le code 404
-            if (!SousTaches[0]) {
+            if (!Taches[0]) {
                 res.status(404);
                 res.send({
                     message: `tâches introuvable avec l'id ${req.params.id}`
@@ -24,55 +25,14 @@ exports.detailTache = (req, res) => {
                 return;
             }
             // Sinon on retourne le premier objet du tableau de résultat car on ne devrait avoir qu'un pokemon par id
-            res.send(SousTaches[0]);
+            res.send(Taches[0]);
         })
         // S'il y a eu une erreur au niveau de la requête, on retourne un erreur 500 car c'est du serveur que provient l'erreur.
         .catch((erreur) => {
             console.log('Erreur : ', erreur);
             res.status(500)
             res.send({
-                message: "Erreur lors de la récupération de la sous-tâche avec l'id " + req.params.id
-            });
-        });
-};
-
-exports.listeTache = (req, res) => {
-    // Teste si le paramètre id est présent et valide
-    if (!req.params.utilisateur_id || parseInt(req.params.utilisateur_id) <= 0) {
-        res.status(400);
-        res.send({
-            message: "L'id de l'utilisateur est obligatoire et doit être supérieur à 0"
-        });
-        return;
-    }
-
-
-    SousTaches.listeTache(req.query.utilisateur_id)
-        .then((SousTaches) => {
-            // S'il n'y a aucun résultat, on retourne un message d'erreur avec le code 404
-            if (!SousTaches[0]) {
-                res.status(404);
-                res.send({
-                    message: `tâches introuvable ${req.query.utilisateur_id}`
-                });
-                return;
-            }
-            //
-            res.send({
-                SousTaches: SousTaches.slice(req.query.page * 25 - 25, req.query.page * 25),
-                type: req.query.type,
-                Nombre_de_SousTaches: SousTaches.length,
-                page: parseInt(req.query.page),
-                Nombre_de_pages: Math.ceil(SousTaches.length / 25)
-            });
-
-        })
-        
-        .catch((erreur) => {
-            console.log('Erreur : ', erreur);
-            res.status(500)
-            res.send({
-                message: "Erreur lors de la récupération des tâches avec l'utilisateur" + req.query.utilisateur_id
+                message: "Erreur lors de la récupération de la tâche avec l'id " + req.params.id
             });
         });
 };
@@ -129,7 +89,7 @@ exports.ajouterSousTache = (req, res) => {
 
 };
 
-exports.modifierTache = (req, res) => {
+exports.modifierSousTache = (req, res) => {
 
     var message = ""; // Message d'erreur
 
@@ -164,7 +124,7 @@ exports.modifierTache = (req, res) => {
         return;
     }
 
-    SousTaches.modifierTache(req.body.nom, req.body.type_primaire, req.body.type_secondaire,
+    SousTaches.modifierSousTache(req.body.nom, req.body.type_primaire, req.body.type_secondaire,
         req.body.pv, req.body.attaque, req.body.defense, req.params.id)
         .then(() => {
 
@@ -184,7 +144,7 @@ exports.modifierTache = (req, res) => {
         });
 };
 
-exports.supprimerTache = (req, res) => {
+exports.supprimerSousTache = (req, res) => {
     // Protection contre les paramêtres invalides
     if (!req.params.id || parseInt(req.params.id) <= 0) {
         res.status(400);
@@ -197,7 +157,7 @@ exports.supprimerTache = (req, res) => {
     }
     info = SousTaches.detailTache(req.params.id);
 
-    SousTaches.supprimerTache(req.params.id)
+    SousTaches.supprimerSousTache(req.params.id)
         .then(() => {
             // Envoie du succès de la requete
             res.send({
