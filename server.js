@@ -25,10 +25,7 @@ app.use('/tachesMemoire/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument,
 app.use(express.json());
 app.use('/tachesMemoire/taches', require('./src/routes/taches'));
 app.use('/tachesMemoire/utilisateurs', require('./src/routes/utilisateurs'));
-const router = express.Router();
-router.get('/', (req, res) => {
-    res.send("ping")
-} )
+
 app.listen(PORT, () =>{
     console.log('Serveur partie sur le port' + PORT)
 });
