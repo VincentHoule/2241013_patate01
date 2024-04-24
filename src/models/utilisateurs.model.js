@@ -79,8 +79,7 @@ Utilisateurs.nouvelleCle = (courriel, mot_de_passe, resultat) => {
 
         bcrypt.compare(mot_de_passe, resultat[0].password)
         .then(res => {
-            console.log(resultat)
-            resolve(resultat);
+            resolve(resultat[0].cleApi);
             let api = uuidv4.v4();
             const requete = 'UPDATE utilisateurs SET cle_api = ? WHERE courriel = ?;';
             const parametres = [api, courriel];
