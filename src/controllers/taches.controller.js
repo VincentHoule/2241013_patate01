@@ -229,7 +229,7 @@ exports.supprimerTache = (req, res) => {
         return;
     }
     var info;
-    
+
     Taches.detailTache(req.params.id)
         .then((resultat) => {
             if (!resultat[0]) {
@@ -239,7 +239,8 @@ exports.supprimerTache = (req, res) => {
                 });
                 return;
             }
-            info = resultat
+           info = resultat
+           console.log("e")
         })
         .catch((erreur) => {
             // Envoie de l'échec de la requete
@@ -250,6 +251,7 @@ exports.supprimerTache = (req, res) => {
             });
             return;
         });
+        console.log(info);
 
     Taches.supprimerTache(req.params.id)
         .then(() => {
