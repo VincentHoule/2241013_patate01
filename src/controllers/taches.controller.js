@@ -196,6 +196,7 @@ exports.modifierTache = (req, res) => {
             res.send({
                 message: "Erreur lors de la selection"
             });
+            return;
         });
 
     Taches.modifierTache(!info[0].complete)
@@ -233,7 +234,7 @@ exports.supprimerTache = (req, res) => {
         .then(() => {
             // Envoie du succès de la requete
             res.send({
-                Message: "Le pokemon id " + req.params.id + " a été supprimé avec succès",
+                Message: "La tache "+ info[0].titre + " a été supprimé avec succès",
                 Tache: info
 
             });
