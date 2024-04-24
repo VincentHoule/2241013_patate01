@@ -16,7 +16,6 @@ Utilisateurs.ajouterUnUtilisateur = (nom, prenom, courriel, mot_de_passe) => {
         const costFactor = 10;
         bcrypt.hash(mot_de_passe, costFactor)
             .then(hash => {
-                console.log('Hash: ', hash)
                 let api = uuidv4.v4();
                 const requete = `INSERT INTO utilisateurs (nom, prenom, courriel, cle_api, password) VALUES ($1, $2, $3, $4, $5);`;
                 const params = [nom, prenom, courriel, api, hash];
@@ -36,9 +35,9 @@ Utilisateurs.ajouterUnUtilisateur = (nom, prenom, courriel, mot_de_passe) => {
 
 Utilisateurs.validationCle = (cleApi) => {
     return new Promise((resolve, reject) => {
-        const requete = 'SELECT COUNT(*) AS nbUtilisateur FROM utilisateurs u WHERE cle_api = $1; ';
+        const requete = 'SELECT COUNT(*) AS nbUtilisateur FROM utilisateurs WHERE cle_api = $1; ';
         const parametres = [cleApi];
-
+        console.log(cleApi);
         sql.query(requete, parametres, (erreur, resultat) => {
             if (erreur) {
                 console.log(`Erreur sqlState ${erreur.sqlState} : ${erreur.sqlMessage}`);
