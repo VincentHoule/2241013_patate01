@@ -190,7 +190,7 @@ exports.modifierTache = (req, res) => {
                 .then(() => {
                     // Envoie du succès de la requete
                     res.send({
-                        Message: "La tâche " + resultat[0].titre + " a été modifié avec succès, elle est " + !resultat[0].complete,
+                        Message: "La tâche " + resultat[0].titre + " a été modifié avec succès, elle est " + resultat[0].complete,
                         Tache: resultat[0]
                     });
                 })

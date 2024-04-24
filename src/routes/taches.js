@@ -4,13 +4,13 @@ const router = express.Router();
 const tachesController = require('../controllers/taches.controller');
 const authentification = require('../middlewares/authentification.middleware');
 
-router.get('/liste', authentification, (req, res) => {
+router.get('/liste/:id', authentification, (req, res) => {
     // ici on ne fait que lancer la bonne fonction du controlleur. L'important est que l'objet res soit 
     // utilisé dans le controller (il y a un send() de fait) 
     tachesController.listeTache(req, res);
 });
 
-router.get('/listeComplete', authentification, (req, res) => {
+router.get('/listeComplete/:id', authentification, (req, res) => {
     // ici on ne fait que lancer la bonne fonction du controlleur. L'important est que l'objet res soit 
     // utilisé dans le controller (il y a un send() de fait) 
     tachesController.listeTacheComplete(req, res);
