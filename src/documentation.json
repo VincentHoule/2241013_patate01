@@ -458,6 +458,178 @@
                     }
                 }
             }
+        },
+        "/tachesMemoire/utilisateurs/": {
+            "post": {
+                "description": "Ajoute un utilisateur",
+                "summary": "INSERT utilisateur",
+                "tags": [
+                    "INSERT"
+                ],
+                "parameters": [
+                    {
+                        "name": "nom",
+                        "in": "body",
+                        "description": "permet de donner un nom",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "prenom",
+                        "in": "body",
+                        "description": "permet de donner un prenom",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "courriel",
+                        "in": "body",
+                        "description": "permet de donner un courriel et de s'indentifier",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "mot_de_passse",
+                        "in": "body",
+                        "description": "permet de donner un mot de passe et de s'indentifier",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                    
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Lorsque le format des attributs n'est pas respecté",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Le mot de passe doit être valide selon le format."
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Lorsque la requête sql échoue",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Erreur lors de l'insertion de l'utilisateur"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Confirmation de l'ajout de l'utilisateur",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "Tâches": [
+                                            {
+                                                "Message": "Utilisateur créé",
+                                                "cle_api": "826c19f6-4bfc-4351-9e1f-3b5dcd225dc7"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tachesMemoire/utilisateurs/cle": {
+            "get": {
+                "description": "Permet de voir sa cle d'api",
+                "summary": "SELECT utilisateur",
+                "tags": [
+                    "SELECT"
+                ],
+                "parameters": [
+                    {
+                        "name": "courriel",
+                        "in": "body",
+                        "description": "permet de trouver l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "mot_de_passse",
+                        "in": "body",
+                        "description": "permet de valider l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Lorsque le format des attributs n'est pas respecté",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Le mot de passe doit être valide selon le format."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Le mot de passe est incorrecte",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "mauvais mot de passe ou courriel. "
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Lorsque la requête sql échoue",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Erreur lors de l'insertion de l'utilisateur"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Confirmation de l'ajout de l'utilisateur",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "Tâches": [
+                                            {
+                                                "Message": "Utilisateur créé",
+                                                "cle_api": "826c19f6-4bfc-4351-9e1f-3b5dcd225dc7"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {

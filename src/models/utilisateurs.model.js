@@ -65,7 +65,7 @@ Utilisateurs.voirCle = (courriel, mot_de_passe) => {
                 })
                 .catch(res => {
                     res.status(404);
-                    res.send({ message: "mauvais mot de passe. " });
+                    res.send({ message: "mauvais mot de passe ou courriel. " });
                     return;
                 })
 

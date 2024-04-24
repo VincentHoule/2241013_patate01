@@ -22,7 +22,7 @@ exports.ajouterUnUtilisateur = (req, res) => {
     }
 
     if (message != "") {
-        res.status(404);
+        res.status(400);
         res.send({ message: `${message}` });
         return;
     }
@@ -57,7 +57,7 @@ exports.voirCle = (req, res) => {
     }
 
     if (message != "") {
-        res.status(404);
+        res.status(400);
         res.send({ message: `${message}` });
         return;
     }
