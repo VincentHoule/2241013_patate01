@@ -61,7 +61,7 @@ Utilisateurs.voirCle = (courriel, mot_de_passe) => {
             }
             bcrypt.compare(mot_de_passe, resultat.rows[0].password)
                 .then(res => {
-                    resolve(resultat.rows[0].cle_api);
+                    resolve(resultat.rows[0]);
                 })
                 .catch(res => {
                     res.status(404);
@@ -77,9 +77,8 @@ Utilisateurs.voirCle = (courriel, mot_de_passe) => {
 Utilisateurs.nouvelleCle = (courriel, mot_de_passe, resultat) => {
     return new Promise((resolve, reject) => {
         console.log(resultat)
-        bcrypt.compare(mot_de_passe, resultat[0].password)
+        bcrypt.compare(mot_de_passe, resultat.password)
         .then(res => {
-            resolve(resultat[0].cleApi);
             let api = uuidv4.v4();
             const requete = 'UPDATE utilisateurs SET cle_api = ? WHERE courriel = ?;';
             const parametres = [api, courriel];
