@@ -81,7 +81,7 @@
                                 "schema": {
                                     "type": "object",
                                     "example": {
-                                        "Pokemons": [
+                                        "Tâches": [
                                             {
                                                 "id": 1073,
                                                 "nom": "Cooky",
@@ -100,10 +100,10 @@
                 }
             }
         },
-        "/api/pokemon/:id": {
+        "/tachesMemoire/taches/:id": {
             "get": {
-                "description": "Retourne le pokemon selon son id",
-                "summary": "SELECT un pokemon",
+                "description": "Retourne la tâches selon son id",
+                "summary": "SELECT une tâche",
                 "tags": [
                     "SELECT"
                 ],
@@ -111,7 +111,7 @@
                     {
                         "name": "id",
                         "in": "params",
-                        "description": "permet à choisir la page s'il y a trop de résulat (tranche de 25)",
+                        "description": "permet de choisir la tâche",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -120,7 +120,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Retourne le pokemon selon son id",
+                        "description": "Retourne la tâches selon son id",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -144,7 +144,7 @@
                             "application/json": {
                                 "schema": {
                                     "type": "string",
-                                    "example": "L'id du pokemon est obligatoire et doit être supérieur à 0"
+                                    "example": "L'id de la tâche est obligatoire et doit être supérieur à 0"
                                 }
                             }
                         }
@@ -155,7 +155,7 @@
                             "application/json": {
                                 "schema": {
                                     "type": "string",
-                                    "example": "pokemon introuvable avec l'id 3"
+                                    "example": "tâches introuvable"
                                 }
                             }
                         }
@@ -166,7 +166,7 @@
                             "application/json": {
                                 "schema": {
                                     "type": "string",
-                                    "example": "Erreur lors de la récupération du pokemon avec l'id 3"
+                                    "example": "Erreur lors de la récupération de la tâches"
                                 }
                             }
                         }
@@ -174,8 +174,8 @@
                 }
             },
             "put": {
-                "description": "Modifier les attributs d'un pokemon",
-                "summary": "Update d'un pokemon",
+                "description": "Modifier les attributs d'une tâches",
+                "summary": "Update d'une tâches",
                 "tags": [
                     "UPDATE"
                 ],

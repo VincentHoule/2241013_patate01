@@ -30,10 +30,28 @@ Taches.detailTache = (id) => {
     });
 };
 
-Taches.listeTache = (utilisateur_id) => {
+Taches.listeTacheComplete = (utilisateur_id) => {
     return new Promise((resolve, reject) => {
 
         const requete = 'SELECT id, utilisateur_id, titre, description, date_debut, date_echeance, complete FROM taches WHERE utilisateur_id = $1';
+        const params = [utilisateur_id];
+
+        sql.query(requete, params, (erreur, resultat) => {
+            if (erreur) {
+                // S'il y a une erreur, je la retourne avec reject()
+                reject(erreur);
+            }
+            // Sinon je retourne le résultat sans faire de validation, c'est possible que le résultat soit vide
+            resolve(resultat.rows);
+        });
+    });
+
+}
+
+Taches.listeTache = (utilisateur_id) => {
+    return new Promise((resolve, reject) => {
+
+        const requete = 'SELECT id, utilisateur_id, titre, description, date_debut, date_echeance, complete FROM taches WHERE utilisateur_id = $1 and complete = false';
         const params = [utilisateur_id];
 
         sql.query(requete, params, (erreur, resultat) => {
@@ -66,11 +84,11 @@ Taches.ajouterTache = (utilisateur_id, titre, description, date_debut, date_eche
 
 }
 
-Taches.modifierTache = (utilisateur_id, titre, description, date_debut, date_echeance, complete, id) => {
+Taches.modifierTache = (status) => {
     return new Promise((resolve, reject) => {
 
-        const requete = 'UPDATE pokemon SET utilisateur_id = $1, titre = $2, description = $3, date_debut = $4, date_echeance = $5, complete = $6 WHERE id = $7 ';
-        const params = [utilisateur_id, titre, description, date_debut, date_echeance, complete, parseInt(id)];
+        const requete = 'UPDATE taches SET complete = $1;';
+        const params = [status];
 
         sql.query(requete, params, (erreur, resultat) => {
             if (erreur) {

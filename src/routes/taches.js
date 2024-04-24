@@ -10,6 +10,12 @@ router.get('/liste', authentification, (req, res) => {
     tachesController.listeTache(req, res);
 });
 
+router.get('/liste/complete', authentification, (req, res) => {
+    // ici on ne fait que lancer la bonne fonction du controlleur. L'important est que l'objet res soit 
+    // utilisé dans le controller (il y a un send() de fait) 
+    tachesController.listeTacheComplete(req, res);
+});
+
 router.get('/:id', authentification, (req, res) => {
     // ici on ne fait que lancer la bonne fonction du controlleur. L'important est que l'objet res soit 
     // utilisé dans le controller (il y a un send() de fait) 

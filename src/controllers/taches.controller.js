@@ -59,15 +59,50 @@ exports.listeTache = (req, res) => {
             }
             //
             res.send({
-                Taches: Taches.slice(req.query.page * 25 - 25, req.query.page * 25),
-                type: req.query.type,
+                Taches: Taches,
                 Nombre_de_Taches: Taches.length,
-                page: parseInt(req.query.page),
-                Nombre_de_pages: Math.ceil(Taches.length / 25)
             });
 
         })
-        
+
+        .catch((erreur) => {
+            console.log('Erreur : ', erreur);
+            res.status(500)
+            res.send({
+                message: "Erreur lors de la récupération des tâches avec l'utilisateur" + req.query.utilisateur_id
+            });
+        });
+};
+
+exports.listeTacheComplete = (req, res) => {
+    // Teste si le paramètre id est présent et valide
+    if (!req.params.utilisateur_id || parseInt(req.params.utilisateur_id) <= 0) {
+        res.status(400);
+        res.send({
+            message: "L'id de l'utilisateur est obligatoire et doit être supérieur à 0"
+        });
+        return;
+    }
+
+
+    Taches.listeTacheComplete(req.query.utilisateur_id)
+        .then((Taches) => {
+            // S'il n'y a aucun résultat, on retourne un message d'erreur avec le code 404
+            if (!Taches[0]) {
+                res.status(404);
+                res.send({
+                    message: `tâches introuvable ${req.query.utilisateur_id}`
+                });
+                return;
+            }
+            //
+            res.send({
+                Taches: Taches,
+                Nombre_de_Taches: Taches.length,
+            });
+
+        })
+
         .catch((erreur) => {
             console.log('Erreur : ', erreur);
             res.status(500)
@@ -91,18 +126,15 @@ exports.ajouterTache = (req, res) => {
     if (!req.body.utilisateur_id || parseInt(req.body.utilisateur_id) < 0) {
         message += "L'id de l'utilisateur est vide ou invalide. ";
     }
-    if (!req.body.date_debut)
-    {
-        message+= "La date de debut est vide ou invalide. ";
+    if (!req.body.date_debut) {
+        message += "La date de debut est vide ou invalide. ";
     }
-    if (!req.body.date_echeance)
-    {
-        message+= "La date d'échéance est vide ou invalide. ";
+    if (!req.body.date_echeance) {
+        message += "La date d'échéance est vide ou invalide. ";
 
     }
-    if(req.body.complete == null)
-    {
-        message+= "Le statue complete est manquant ou invalide. ";
+    if (req.body.complete == null) {
+        message += "Le statue complete est manquant ou invalide. ";
 
     }
 
@@ -117,7 +149,7 @@ exports.ajouterTache = (req, res) => {
     Taches.ajouterTache(req.body.utilisateur_id, req.body.titre, req.body.description,
         req.body.date_debut, req.body.date_echeance, req.body.complete)
         .then(() => {
-            
+
             res.send({
                 Info: "La tâche a été ajouté avec succès",
                 Tâche: req.body
@@ -136,45 +168,26 @@ exports.ajouterTache = (req, res) => {
 
 exports.modifierTache = (req, res) => {
 
-    var message = ""; // Message d'erreur
+    var status = false;
+    var titre = "";
+    Taches.detailTache(req.params)
+        .then((resultat) => {
+            status = resultat.complete
+            titre = resultat.titre
+        })
+        .catch((erreur) => {
+            console.log('Erreur : ', erreur);
+            res.status(500);
+            res.send({
+                message: "Erreur lors de la récupération de la tâche"
+            });
+        });
 
-    // Protection contre les paramêtres invalides
-    if (!req.params.id || parseInt(req.params.id) <= 0) {
-        message += "L'id est invalide ou absent. "
-    }
-    if (!req.body.titre || (req.body.titre.length <= 0 && req.body.titre.length > 100)) {
-        message += "Le titre est vide, manquant ou invalide. ";
-    }
-    if (!req.body.description || req.body.description.length > 500) {
-        message += "La description est manquant ou invalide. ";
-    }
-    if (!req.body.date_debut) {
-        message += "La date de debut est manquant ou invalide. ";
-    }
-
-    if (!req.body.date_echeance) {
-        message += "La date d'échéance est vide ou invalide. ";
-    }
-    if (req.body.complete == null) {
-        message += "L'attaque est vide ou invalide. ";
-    }
-
-
-    // Envoie du message d'erreur
-    if (message != "") {
-        res.status(400);
-        res.send({ message: `${message}` });
-        return;
-    }
-
-    Taches.modifierTache(req.body.id, req.body.titre, req.body.description,
-        req.body.date_debut, req.body.date_echeance, req.body.complete)
+    Taches.modifierTache(!status)
         .then(() => {
-
             // Envoie du succès de la requete
             res.send({
-                Message: "La tâche " + req.params.titre + " a été modifié avec succès",
-                Taches: req.body
+                Message: "La tâche " + titre + " a été modifié avec succès, elle est " + toString(status)
             });
         })
         .catch((erreur) => {

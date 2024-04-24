@@ -37,13 +37,13 @@ Utilisateurs.validationCle = (cleApi) => {
     return new Promise((resolve, reject) => {
         const requete = `SELECT COUNT(*) as nbUtilisateur FROM utilisateurs WHERE cle_api = $1 ; `;
         const parametres = [cleApi];
-        console.log(cleApi);
+
         await = sql.query(requete, parametres, (erreur, resultat) => {
             if (erreur) {
                 console.log(`Erreur sqlState ${erreur.sqlState} : ${erreur.sqlMessage}`);
                 reject(erreur);
             }
-            console.log(resultat.rows[0]);
+
             resolve(resultat.rows[0].nbutilisateur > 0);
         });
     });
