@@ -84,7 +84,6 @@ exports.listeTacheComplete = (req, res) => {
         return;
     }
 
-
     Taches.listeTacheComplete(req.query.utilisateur_id)
         .then((Taches) => {
             // S'il n'y a aucun résultat, on retourne un message d'erreur avec le code 404
