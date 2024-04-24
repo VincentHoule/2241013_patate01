@@ -168,26 +168,24 @@ exports.ajouterTache = (req, res) => {
 
 exports.modifierTache = (req, res) => {
 
-    var status = false;
-    var titre = "";
-    Taches.detailTache(req.params)
-        .then((resultat) => {
-            status = resultat.complete
-            titre = resultat.titre
-        })
-        .catch((erreur) => {
-            console.log('Erreur : ', erreur);
-            res.status(500);
-            res.send({
-                message: "Erreur lors de la récupération de la tâche"
-            });
-        });
+    if (!req.params.id || parseInt(req.params.id) <= 0) {
+        res.status(400);
 
-    Taches.modifierTache(!status)
+        // Envoie du message d'erreur
+        res.send({
+            message: "L'id du la tâche est obligatoire et doit être supérieur à 0"
+        });
+        return;
+    }
+
+    info = Taches.detailTache(req.params.id)
+        
+    Taches.modifierTache(!info.complete)
         .then(() => {
             // Envoie du succès de la requete
             res.send({
-                Message: "La tâche " + titre + " a été modifié avec succès, elle est " + toString(status)
+                Message: "La tâche " + info.titre + " a été modifié avec succès, elle est " + toString(info.complete),
+                Tache : info
             });
         })
         .catch((erreur) => {
@@ -218,7 +216,7 @@ exports.supprimerTache = (req, res) => {
             // Envoie du succès de la requete
             res.send({
                 Message: "Le pokemon id " + req.params.id + " a été supprimé avec succès",
-                Pokemon: info
+                Tache: info
 
             });
         })
