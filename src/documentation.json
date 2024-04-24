@@ -474,42 +474,81 @@
         }
     },
     "components": {
-        "schemas": {
-            "tâches": {
-                "type": "object",
-                "required": [
-                    "id",
-                    "utilisateur_id",
-                    "titre",
-                    "description",
-                    "date_debut",
-                    "date_echeance",
-                    "complete"
-                ],
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "utilisateur_id": {
-                        "type": "integer"
-                    },
-                    "titre": {
-                        "type": "string"
-                    },
-                    "description": {
-                        "type": "string"
-                    },
-                    "date_debut": {
-                        "type": "date"
-                    },
-                    "date_echeance": {
-                        "type": "date"
-                    },
-                    "complete": {
-                        "type": "boolean"
+        "schemas": [
+            {
+                "tâches": {
+                    "type": "object",
+                    "required": [
+                        "id",
+                        "utilisateur_id",
+                        "titre",
+                        "description",
+                        "date_debut",
+                        "date_echeance",
+                        "complete"
+                    ],
+                    "properties": {
+                        "id": {
+                            "type": "integer"
+                        },
+                        "utilisateur_id": {
+                            "type": "integer"
+                        },
+                        "titre": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "date_debut": {
+                            "type": "date"
+                        },
+                        "date_echeance": {
+                            "type": "date"
+                        },
+                        "complete": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            },
+            {
+                "sous-tâches": {
+                    "type": "object",
+                    "required": [
+                        "id",
+                        "utilisateur_id",
+                        "titre",
+                        "description",
+                        "date_debut",
+                        "date_echeance",
+                        "complete"
+                    ],
+                    "properties": {
+                        "id": {
+                            "type": "integer"
+                        },
+                        "utilisateur_id": {
+                            "type": "integer"
+                        },
+                        "titre": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "date_debut": {
+                            "type": "date"
+                        },
+                        "date_echeance": {
+                            "type": "date"
+                        },
+                        "complete": {
+                            "type": "boolean"
+                        }
                     }
                 }
             }
-        }
+        ]
     }
 }
