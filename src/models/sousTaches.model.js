@@ -2,22 +2,18 @@
 const sql = require("../config/pg_db.js");
 
 // constructeur
-const SousTaches = (taches) => {
-    this.id = taches.id;
-    this.utilisateur_id = taches.utilisateur_id;
-    this.titre = taches.titre;
-    this.description = taches.description;
-    this.date_debut = taches.date_debut;
-    this.date_echeance = taches.date_echeance;
-    this.complete = taches.complete;
+const SousTaches = (sousTache) => {
+    this.id = sousTache.id;
+    this.utilisateur_id = sousTache.tache_id;
+    this.complete = sousTache.complete;
 
 };
 
-SousTaches.ajouterSousTache = (utilisateur_id, titre, description, date_debut, date_echeance, complete) => {
+SousTaches.ajouterSousTache = (tache_id, titre,  complete) => {
     return new Promise((resolve, reject) => {
 
-        const requete = 'INSERT INTO taches ( utilisateur_id, titre, description, date_debut, date_echeance, complete) VALUES ($1, $2, $3, $4, $5, $6) ';
-        const params = [utilisateur_id, titre, description, date_debut, date_echeance, complete]
+        const requete = 'INSERT INTO taches (tache_id, titre, complete) VALUES ($1, $2, $3) ';
+        const params = [tache_id, titre, complete]
 
         sql.query(requete, params, (erreur, resultat) => {
             if (erreur) {
@@ -29,13 +25,28 @@ SousTaches.ajouterSousTache = (utilisateur_id, titre, description, date_debut, d
         })
     });
 
-}
+};
 
-SousTaches.modifierSousTache = (id, tache_id, titre, complete) => {
+SousTaches.detailSousTache = (id) => {
+    return new Promise((resolve, reject) => {
+        const requete = 'SELECT * FROM sousTache WHERE id =  $1';
+        const params = [id]
+
+        sql.query(requete, params, (erreur, resultat) => {
+            if(erreur)
+            {
+                reject(erreur)
+            }
+            resolve(resultat.rows)
+        })
+    })
+};
+
+SousTaches.modifierSousTache = (id, complete) => {
     return new Promise((resolve, reject) => {
 
-        const requete = 'UPDATE sousTaches SET tache_id = $1, titre = $2, complete = $3 WHERE id = $4 ';
-        const params = [parseInt(tache_id), titre, complete, parseInt(id)];
+        const requete = 'UPDATE sousTaches  complete = $3 WHERE id = $4 ';
+        const params = [complete, parseInt(id)];
 
         sql.query(requete, params, (erreur, resultat) => {
             if (erreur) {

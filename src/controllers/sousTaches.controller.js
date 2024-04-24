@@ -1,67 +1,23 @@
 const SousTaches = require("../models/sousTaches.model.js");
 
+exports.ajouterSousTache = (req, res) => {
 
-exports.detailSousTache = (req, res) => {
+    var message = ""; // Variable de message d'erreur
 
-    // Teste si le paramètre id est présent et valide
-    if (!req.params.id || parseInt(req.params.id) <= 0) {
+    // Protection contre les paramêtres invalides
+    if (!req.body.titre || (req.body.titre.length <= 0 && req.body.titre.length > 100)) {
+        message += "Le nom est vide, manquant ou invalide. ";
+    }
+    if (!req.params.tache_id || parseInt(req.params.tache_id) <= 0) {
         res.status(400);
         res.send({
             message: "L'id de la tâches est obligatoire et doit être supérieur à 0"
         });
         return;
     }
-
-    // Appel à la fonction trouverUnpokemon dans le modèle
-    Taches.detailSousTache(req.params.id)
-        // Si c'est un succès
-        .then((Taches) => {
-            // S'il n'y a aucun résultat, on retourne un message d'erreur avec le code 404
-            if (!Taches[0]) {
-                res.status(404);
-                res.send({
-                    message: `tâches introuvable avec l'id ${req.params.id}`
-                });
-                return;
-            }
-            // Sinon on retourne le premier objet du tableau de résultat car on ne devrait avoir qu'un pokemon par id
-            res.send(Taches[0]);
-        })
-        // S'il y a eu une erreur au niveau de la requête, on retourne un erreur 500 car c'est du serveur que provient l'erreur.
-        .catch((erreur) => {
-            console.log('Erreur : ', erreur);
-            res.status(500)
-            res.send({
-                message: "Erreur lors de la récupération de la tâche avec l'id " + req.params.id
-            });
-        });
-};
-
-exports.ajouterSousTache = (req, res) => {
-
-    var message = ""; // Variable de message d'erreur
-
-    // Protection contre les paramêtres invalides
-    if (!req.body.nom || (req.body.nom.length <= 0 && req.body.nom.length > 100)) {
-        message += "Le nom est vide, manquant ou invalide. ";
+    if (req.body.complete == null) {
+        message += "Le parametre complete est vide, manquant ou invalide. ";
     }
-    if (!req.body.type_primaire || (req.body.type_primaire.length <= 0 && req.body.type_primaire.length > 100)) {
-        message += "Le type primaire est vide, manquant ou invalide. ";
-    }
-    if (!req.body.type_secondaire || req.body.type_secondaire.length < 0 && req.body.type_secondaire.length > 100) {
-        message += "Le type secondaire est manquant ou invalide. ";
-    }
-
-    if (!req.body.pv || parseInt(req.body.pv) < 0) {
-        message += "Les pv est vide ou invalide. ";
-    }
-    if (!req.body.attaque || parseInt(req.body.attaque) < 0) {
-        message += "L'attaque est vide ou invalide. ";
-    }
-    if (!req.body.defense || parseInt(req.body.defense) < 0) {
-        message += "La defense est vide ou invalide. ";
-    }
-
     // Envoie du message d'erreur
     if (message != "") {
         res.status(404);
@@ -85,62 +41,57 @@ exports.ajouterSousTache = (req, res) => {
                 message: "Erreur lors de l'insertion"
             });
         });
-
-
 };
 
 exports.modifierSousTache = (req, res) => {
 
-    var message = ""; // Message d'erreur
-
-    // Protection contre les paramêtres invalides
     if (!req.params.id || parseInt(req.params.id) <= 0) {
-        message += "L'id est invalide ou absent. "
-    }
-    if (!req.body.nom || (req.body.nom.length <= 0 && req.body.nom.length > 100)) {
-        message += "Le nom est vide, manquant ou invalide. ";
-    }
-    if (!req.body.type_primaire || (req.body.type_primaire.length <= 0 && req.body.type_primaire.length > 100)) {
-        message += "Le type primaire est vide, manquant ou invalide. ";
-    }
-    if (!req.body.type_secondaire || req.body.type_secondaire.length < 0 && req.body.type_secondaire.length > 100) {
-        message += "Le type secondaire est manquant ou invalide. ";
-    }
-
-    if (!req.body.pv || parseInt(req.body.pv) < 0) {
-        message += "Les pv est vide ou invalide. ";
-    }
-    if (!req.body.attaque || parseInt(req.body.attaque) < 0) {
-        message += "L'attaque est vide ou invalide. ";
-    }
-    if (!req.body.defense || parseInt(req.body.defense) < 0) {
-        message += "La defense est vide ou invalide. ";
-    }
-
-    // Envoie du message d'erreur
-    if (message != "") {
         res.status(400);
-        res.send({ message: `${message}` });
+
+        // Envoie du message d'erreur
+        res.send({
+            message: "L'id du la tâche est obligatoire et doit être supérieur à 0"
+        });
         return;
     }
 
-    SousTaches.modifierSousTache(req.body.nom, req.body.type_primaire, req.body.type_secondaire,
-        req.body.pv, req.body.attaque, req.body.defense, req.params.id)
-        .then(() => {
+    Taches.detailSousTache(req.params.id)
+        .then((resultat) => {
+            if (!resultat[0]) {
+                res.status(404);
+                res.send({
+                    message: `tâches introuvable ${req.params.id}`
+                });
+                return;   
+            }
+            
+            Taches.modifierSousTache(!resultat[0].complete)
+                .then(() => {
+                    // Envoie du succès de la requete
+                    resultat[0].complete = !resultat[0].complete
+                    res.send({
+                        Message: "La sous-tâche " + resultat[0].titre + " a été modifié avec succès, elle est " + resultat[0].complete,
+                        SousTache: resultat[0]
+                    });
+                })
+                .catch((erreur) => {
+                    // Envoie de l'échec de la requete
+                    console.log('Erreur : ', erreur);
+                    res.status(500);
+                    res.send({
+                        message: "Erreur lors de la modification"
+                    });
+                });
 
-            // Envoie du succès de la requete
-            res.send({
-                Message: "Le pokemon id " + req.params.id + " a été modifié avec succès",
-                SousTaches: req.body
-            });
         })
         .catch((erreur) => {
             // Envoie de l'échec de la requete
             console.log('Erreur : ', erreur);
             res.status(500);
             res.send({
-                message: "Erreur lors de la modification"
+                message: "Erreur lors de la selection"
             });
+            return;
         });
 };
 
@@ -151,29 +102,46 @@ exports.supprimerSousTache = (req, res) => {
 
         // Envoie du message d'erreur
         res.send({
-            message: "L'id du pokemon est obligatoire et doit être supérieur à 0"
+            message: "L'id de la sous tâche est obligatoire et doit être supérieur à 0. "
         });
         return;
     }
-    info = SousTaches.detailTache(req.params.id);
 
-    SousTaches.supprimerSousTache(req.params.id)
-        .then(() => {
-            // Envoie du succès de la requete
-            res.send({
-                Message: "Le pokemon id " + req.params.id + " a été supprimé avec succès",
-                Pokemon: info
+    Taches.detailSousTache(req.params.id)
+        .then((resultat) => {
+            if (!resultat[0]) {
+                res.status(404);
+                res.send({
+                    message: `sous tâches introuvable ${req.params.id}`
+                });
+                return;
+            }
 
-            });
+            Taches.supprimerTache(req.params.id)
+                .then(() => {
+                    // Envoie du succès de la requete
+                    res.send({
+                        Message: "La sous tâche " + resultat[0].titre + " a été supprimé avec succès. ",
+                        Tache: resultat[0]
+
+                    });
+                })
+                // Envoie de l'échec de la requete
+                .catch((erreur) => {
+                    console.log('Erreur : ', erreur);
+                    res.status(500);
+                    res.send({
+                        message: "Erreur lors de la suppression"
+                    });
+                });
         })
-        // Envoie de l'échec de la requete
         .catch((erreur) => {
+            // Envoie de l'échec de la requete
             console.log('Erreur : ', erreur);
             res.status(500);
             res.send({
-                message: "Erreur lors de la suppression"
+                message: "Erreur lors de la selection"
             });
+            return;
         });
-
-}
-
+};

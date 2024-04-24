@@ -185,10 +185,13 @@ exports.modifierTache = (req, res) => {
                     message: `tâches introuvable ${req.params.id}`
                 });
                 return;
+                
             }
+            
             Taches.modifierTache(!resultat[0].complete)
                 .then(() => {
                     // Envoie du succès de la requete
+                    resultat[0].complete = !resultat[0].complete
                     res.send({
                         Message: "La tâche " + resultat[0].titre + " a été modifié avec succès, elle est " + resultat[0].complete,
                         Tache: resultat[0]
