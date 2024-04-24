@@ -10,6 +10,7 @@ module.exports = (req, res, next) => {
     // Récupérer la clé API
     const cleApi = req.headers.authorization.split(' ')[1];
     // Vérifier si la clé API est valide
+    console.log(cleApi)
     Utilisateur.validationCle(cleApi)
     .then(resultat => {
         if(!resultat) {
