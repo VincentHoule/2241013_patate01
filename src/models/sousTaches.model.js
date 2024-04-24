@@ -42,7 +42,7 @@ SousTaches.detailSousTache = (id) => {
     })
 };
 
-SousTaches.modifierSousTache = (id, complete) => {
+SousTaches.completeSousTache = (id, complete) => {
     return new Promise((resolve, reject) => {
 
         const requete = 'UPDATE sousTaches  complete = $3 WHERE id = $4 ';

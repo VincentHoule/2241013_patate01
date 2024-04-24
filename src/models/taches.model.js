@@ -84,7 +84,7 @@ Taches.ajouterTache = (utilisateur_id, titre, description, date_debut, date_eche
 
 }
 
-Taches.modifierTache = (status) => {
+Taches.completeTache = (status) => {
     return new Promise((resolve, reject) => {
 
         const requete = 'UPDATE taches SET complete = $1;';

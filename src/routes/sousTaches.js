@@ -12,7 +12,7 @@ router.post('/', authentification, (req, res) => {
 
 router.put('/:id', authentification, (req, res) => {
     
-    sousTachesController.modifierSousTache(req, res);
+    sousTachesController.completeSousTache(req, res);
 });
 
 router.delete('/:id', authentification, (req, res) => {

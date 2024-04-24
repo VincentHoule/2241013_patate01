@@ -165,7 +165,7 @@ exports.ajouterTache = (req, res) => {
 
 };
 
-exports.modifierTache = (req, res) => {
+exports.completeTache = (req, res) => {
 
     if (!req.params.id || parseInt(req.params.id) <= 0) {
         res.status(400);
@@ -188,7 +188,7 @@ exports.modifierTache = (req, res) => {
                 
             }
             
-            Taches.modifierTache(!resultat[0].complete)
+            Taches.completeTache(!resultat[0].complete)
                 .then(() => {
                     // Envoie du succès de la requete
                     resultat[0].complete = !resultat[0].complete

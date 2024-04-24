@@ -30,7 +30,7 @@ router.post('/', authentification, (req, res) => {
 
 router.put('/:id', authentification, (req, res) => {
     
-    tachesController.modifierTache(req, res);
+    tachesController.completeTache(req, res);
 });
 
 router.delete('/:id', authentification, (req, res) => {

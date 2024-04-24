@@ -43,7 +43,7 @@ exports.ajouterSousTache = (req, res) => {
         });
 };
 
-exports.modifierSousTache = (req, res) => {
+exports.completeSousTache = (req, res) => {
 
     if (!req.params.id || parseInt(req.params.id) <= 0) {
         res.status(400);
@@ -65,7 +65,7 @@ exports.modifierSousTache = (req, res) => {
                 return;   
             }
             
-            Taches.modifierSousTache(!resultat[0].complete)
+            Taches.completeSousTache(!resultat[0].complete)
                 .then(() => {
                     // Envoie du succès de la requete
                     resultat[0].complete = !resultat[0].complete
