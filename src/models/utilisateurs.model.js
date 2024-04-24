@@ -35,11 +35,10 @@ Utilisateurs.ajouterUnUtilisateur = (nom, prenom, courriel, mot_de_passe) => {
 
 Utilisateurs.validationCle = (cleApi) => {
     return new Promise((resolve, reject) => {
-        cleApi = this.toString(cleApi);
         const requete = `SELECT COUNT(*) as nbUtilisateur FROM utilisateurs WHERE cle_api = $1 ; `;
         const parametres = [cleApi];
         console.log(cleApi);
-        sql.query(requete, parametres, (erreur, resultat) => {
+        await = sql.query(requete, parametres, (erreur, resultat) => {
             if (erreur) {
                 console.log(`Erreur sqlState ${erreur.sqlState} : ${erreur.sqlMessage}`);
                 reject(erreur);

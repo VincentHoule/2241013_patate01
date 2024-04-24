@@ -1,20 +1,19 @@
-
 {
-    "openapi" : "3.1.0",
-    "info" : {
-        "title": "Titre de votre API [REQUIS]",
-        "summary": "Une courte description de ce que fait votre API",
-        "description": "Une description plus détaillé de ce que fait votre API",
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Rappels-Tâches",
+        "summary": "Api qui sert à créer des tâches avec des sous-tâches pour s'en rappeler.",
+        "description": "Elle permet de créer des tâches propres à chaque utilisateur et d'y affecter des sous-tâches",
         "contact": {
-            "name": "API Support",
+            "name": "Vincent HOule",
             "url": "https://www.example.com/support",
-            "email": "support@example.com"
+            "email": "monadresse@gmail.com"
         },
-        "version": "1.0.1 [REQUIS - Version de votre API]"
+        "version": "1.0.1 "
     },
     "servers": [
         {
-            "url": "http://api.profs.ca",
+            "url": "https://two241013-patate01.onrender.com",
             "description": "Serveur en ligne"
         },
         {
@@ -22,12 +21,495 @@
             "description": "Serveur de développement"
         }
     ],
-    "paths" : {
-        "route1" : ""
+    "paths": {
+        "/api/pokemon/liste": {
+            "get": {
+                "description": "Retourne la liste des pokemons selon leur type",
+                "summary": "Liste des pokemons",
+                "tags": [
+                    "SELECT"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "params",
+                        "description": "permet à choisir la page s'il y a trop de résulat (tranche de 25)",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "params",
+                        "description": "permet de choisir le type du pokemon que tu veux voir",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Lorsque le format des attribut n'est pas respecté",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Le type ne doit pas être vide"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Lorsqu'aucun pokemon n'a le type demandé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "pokemon introuvable banana"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Lorsque la requête sql échoue",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Erreur lors de la récupération du pokemon avec le type fire"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "La liste des pokemons selon le type",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "Pokemons": [
+                                            {
+                                                "id": 1073,
+                                                "nom": "Cooky",
+                                                "type_primaire": "Rock",
+                                                "type_secondaire": "Stone",
+                                                "pv": 92,
+                                                "attaque": 20,
+                                                "defense": 150
+                                            }
+                                        ],
+                                        "type": "stone",
+                                        "Nombre_de_Pokemons": 1,
+                                        "page": 1,
+                                        "Nombre_de_pages": 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/pokemon/:id": {
+            "get": {
+                "description": "Retourne le pokemon selon son id",
+                "summary": "SELECT un pokemon",
+                "tags": [
+                    "SELECT"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "params",
+                        "description": "permet à choisir la page s'il y a trop de résulat (tranche de 25)",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne le pokemon selon son id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "id": 1033,
+                                        "nom": "Frosmoth",
+                                        "type_primaire": "Ice",
+                                        "type_secondaire": "Bug",
+                                        "pv": 70,
+                                        "attaque": 65,
+                                        "defense": 60
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Format de l'id invalide",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "L'id du pokemon est obligatoire et doit être supérieur à 0"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "L'id est inexistant",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "pokemon introuvable avec l'id 3"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur lors du SELECT SQL",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Erreur lors de la récupération du pokemon avec l'id 3"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Modifier les attributs d'un pokemon",
+                "summary": "Update d'un pokemon",
+                "tags": [
+                    "UPDATE"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "params",
+                        "description": "permet de choisir le pokemon a modifié",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "nom",
+                        "in": "body",
+                        "description": "permet de changer le nom",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type_primaire",
+                        "in": "body",
+                        "description": "permet de changer le type primaire",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type_secondaire",
+                        "in": "body",
+                        "description": "permet de changer le type secondaire",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "pv",
+                        "in": "body",
+                        "description": "permet de changer les pv",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "attque",
+                        "in": "body",
+                        "description": "permet de changer l'attaque",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "defenses",
+                        "in": "body",
+                        "description": "permet de changer la défense",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Le nouveaux pokemon qui a été modifier",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "Message": "Le pokemon id 2 a été modifié avec succès",
+                                        "Pokemons": {
+                                            "nom": "Cooky",
+                                            "type_primaire": "roche",
+                                            "type_secondaire": "obèse",
+                                            "pv": 92,
+                                            "attaque": 20,
+                                            "defense": 150
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Retourne quel champs n'est pas valide",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "message": "Le nom est vide, manquant ou invalide. Le type primaire est vide, manquant ou invalide. Le type secondaire est manquant ou invalide. Les pv est vide ou invalide. L'attaque est vide ou invalide. La defense est vide ou invalide. "
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Retourne information de l'échec de l'update",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Erreur lors de la modification"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Supprime un pokemon de la base de données",
+                "summary": "DELETE Pokemon",
+                "tags": [
+                    "DELETE"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "params",
+                        "description": "permet de choisir le pokemon a supprimé",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne information de la réussite de la suppression",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "objet",
+                                    "example": {
+                                        "Message": "Le pokemon id 1 a été supprimé avec succès",
+                                        "Pokemon": {}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Format de l'id invalide",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "L'id du pokemon est obligatoire et doit être supérieur à 0"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Retourne information de l'échec de la suppression",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Erreur lors de la suppression"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/pokemon": {
+            "post": {
+                "description": "Ajoute un pokemon dans la liste",
+                "summary": "INSERT un pokemon",
+                "tags": [
+                    "INSERT"
+                ],
+                "parameters": [
+                    {
+                        "name": "nom",
+                        "in": "body",
+                        "description": "permet de changer le nom",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type_primaire",
+                        "in": "body",
+                        "description": "permet de changer le type primaire",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type_secondaire",
+                        "in": "body",
+                        "description": "permet de changer le type secondaire",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "pv",
+                        "in": "body",
+                        "description": "permet de changer les pv",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "attque",
+                        "in": "body",
+                        "description": "permet de changer l'attaque",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "defenses",
+                        "in": "body",
+                        "description": "permet de changer la défense",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne la confirmation de la réussite de l'insertion",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "Info": "Le pokemon a été ajouté avec succès",
+                                        "Pokemon": {
+                                            "nom": "Cooky",
+                                            "type_primaire": "Rock",
+                                            "type_secondaire": "Stone",
+                                            "pv": 92,
+                                            "attaque": 20,
+                                            "defense": 150
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Retourne quel champs n'est pas valide",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Le nom est vide, manquant ou invalide. Le type primaire est vide, manquant ou invalide. Le type secondaire est manquant ou invalide. Les pv est vide ou invalide. L'attaque est vide ou invalide. La defense est vide ou invalide. "
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Retourne information de l'échec de l'insert",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Erreur lors de l'insertion"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     },
-    "components" : {
+    "components": {
         "schemas": {
-            "nom_schema" : ""
+            "tâches": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "utilisateur_id",
+                    "titre",
+                    "description",
+                    "date_debut",
+                    "date_echeance",
+                    "complete"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "utilisateur_id": {
+                        "type": "integer"
+                    },
+                    "titre": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "date_debut": {
+                        "type": "date"
+                    },
+                    "date_echeance": {
+                        "type": "date"
+                    },
+                    "complete": {
+                        "type": "boolean"
+                    }
+                }
+            }
         }
     }
 }
