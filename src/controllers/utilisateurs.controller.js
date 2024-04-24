@@ -64,13 +64,11 @@ exports.voirCle = (req, res) => {
 
     Utilisateurs.voirCle(req.body.courriel, req.body.mot_de_passe)
         .then((resultat) => {
-            Utilisateurs.nouvelleCle(req.body.courriel, req.body.mot_de_passe, resultat);
-            Utilisateurs.voirCle(req.body.courriel, req.body.mot_de_passe)
+            Utilisateurs.nouvelleCle(req.body.courriel, req.body.mot_de_passe, resultat)
                 .then((resultat2) => {
                     res.send({
-                        cle: resultat2.cle_api
+                        cle: resultat2
                     })
-
                 })
                 .catch((erreur) => {
                     console.log('Erreur : ', erreur);
@@ -80,8 +78,6 @@ exports.voirCle = (req, res) => {
 
                     });
                 })
-
-
         })
         .catch((erreur) => {
             console.log('Erreur : ', erreur);
