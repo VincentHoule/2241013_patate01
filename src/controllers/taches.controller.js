@@ -177,7 +177,7 @@ exports.modifierTache = (req, res) => {
         });
         return;
     }
-    var info;
+
     Taches.detailTache(req.params.id)
         .then((resultat) => {
             if (!resultat[0]) {
@@ -187,7 +187,23 @@ exports.modifierTache = (req, res) => {
                 });
                 return;
             }
-            info = resultat
+            Taches.modifierTache(!resultat[0].complete)
+                .then(() => {
+                    // Envoie du succès de la requete
+                    res.send({
+                        Message: "La tâche " + resultat[0].titre + " a été modifié avec succès, elle est " + toString(!resultat[0].complete),
+                        Tache: info
+                    });
+                })
+                .catch((erreur) => {
+                    // Envoie de l'échec de la requete
+                    console.log('Erreur : ', erreur);
+                    res.status(500);
+                    res.send({
+                        message: "Erreur lors de la modification"
+                    });
+                });
+
         })
         .catch((erreur) => {
             // Envoie de l'échec de la requete
@@ -199,22 +215,7 @@ exports.modifierTache = (req, res) => {
             return;
         });
 
-    Taches.modifierTache(!info[0].complete)
-        .then(() => {
-            // Envoie du succès de la requete
-            res.send({
-                Message: "La tâche " + info[0].titre + " a été modifié avec succès, elle est " + toString(info[0].complete),
-                Tache: info
-            });
-        })
-        .catch((erreur) => {
-            // Envoie de l'échec de la requete
-            console.log('Erreur : ', erreur);
-            res.status(500);
-            res.send({
-                message: "Erreur lors de la modification"
-            });
-        });
+
 };
 
 exports.supprimerTache = (req, res) => {
@@ -228,7 +229,6 @@ exports.supprimerTache = (req, res) => {
         });
         return;
     }
-    var info;
 
     Taches.detailTache(req.params.id)
         .then((resultat) => {
@@ -239,8 +239,24 @@ exports.supprimerTache = (req, res) => {
                 });
                 return;
             }
-           info = resultat
-           console.log("e")
+
+            Taches.supprimerTache(req.params.id)
+                .then(() => {
+                    // Envoie du succès de la requete
+                    res.send({
+                        Message: "La tache " + resultat[0].titre + " a été supprimé avec succès",
+                        Tache: resultat[0]
+
+                    });
+                })
+                // Envoie de l'échec de la requete
+                .catch((erreur) => {
+                    console.log('Erreur : ', erreur);
+                    res.status(500);
+                    res.send({
+                        message: "Erreur lors de la suppression"
+                    });
+                });
         })
         .catch((erreur) => {
             // Envoie de l'échec de la requete
@@ -251,25 +267,7 @@ exports.supprimerTache = (req, res) => {
             });
             return;
         });
-        console.log(info);
 
-    Taches.supprimerTache(req.params.id)
-        .then(() => {
-            // Envoie du succès de la requete
-            res.send({
-                Message: "La tache " + info[0].titre + " a été supprimé avec succès",
-                Tache: info
-
-            });
-        })
-        // Envoie de l'échec de la requete
-        .catch((erreur) => {
-            console.log('Erreur : ', erreur);
-            res.status(500);
-            res.send({
-                message: "Erreur lors de la suppression"
-            });
-        });
 
 }
 
