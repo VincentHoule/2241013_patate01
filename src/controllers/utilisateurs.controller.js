@@ -62,12 +62,11 @@ exports.voirCle = (req, res) => {
         return;
     }
 
-
     Utilisateurs.voirCle(req.body.courriel, req.body.mot_de_passe)
         .then((resultat) => {
-
-            await  = Utilisateurs.nouvelleCle(req.body.courriel, req.body.mot_de_passe, resultat);
-            await = Utilisateurs.voirCle(req.body.courriel, req.body.mot_de_passe)
+            console.log(resultat);
+            await(Utilisateurs.nouvelleCle(req.body.courriel, req.body.mot_de_passe, resultat));
+            await(Utilisateurs.voirCle(req.body.courriel, req.body.mot_de_passe))
                 .then((resultat2) => {
                     res.send({
                         cle: resultat2

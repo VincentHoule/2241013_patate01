@@ -167,13 +167,13 @@ exports.modifierTache = (req, res) => {
         return;
     }
 
-    Taches.modifierTache(req.body.nom, req.body.type_primaire, req.body.type_secondaire,
-        req.body.pv, req.body.attaque, req.body.defense, req.params.id)
+    Taches.modifierTache(req.body.id, req.body.titre, req.body.description,
+        req.body.date_debut, req.body.date_echeance, req.body.complete)
         .then(() => {
 
             // Envoie du succès de la requete
             res.send({
-                Message: "Le pokemon id " + req.params.id + " a été modifié avec succès",
+                Message: "La tâche " + req.params.titre + " a été modifié avec succès",
                 Taches: req.body
             });
         })
@@ -194,7 +194,7 @@ exports.supprimerTache = (req, res) => {
 
         // Envoie du message d'erreur
         res.send({
-            message: "L'id du pokemon est obligatoire et doit être supérieur à 0"
+            message: "L'id du la tâche est obligatoire et doit être supérieur à 0"
         });
         return;
     }
