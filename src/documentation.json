@@ -476,7 +476,7 @@
     "components": {
         "schemas": [
             {
-                "tâches": {
+                "tâche": {
                     "type": "object",
                     "required": [
                         "id",
@@ -513,38 +513,57 @@
                 }
             },
             {
-                "sous-tâches": {
+                "sous-tâche": {
                     "type": "object",
                     "required": [
                         "id",
-                        "utilisateur_id",
+                        "tache_id",
                         "titre",
-                        "description",
-                        "date_debut",
-                        "date_echeance",
                         "complete"
                     ],
                     "properties": {
                         "id": {
                             "type": "integer"
                         },
-                        "utilisateur_id": {
+                        "tache_id": {
                             "type": "integer"
-                        },
-                        "titre": {
-                            "type": "string"
-                        },
-                        "description": {
-                            "type": "string"
-                        },
-                        "date_debut": {
-                            "type": "date"
-                        },
-                        "date_echeance": {
-                            "type": "date"
                         },
                         "complete": {
                             "type": "boolean"
+                        }
+                    }
+                }
+            },
+            {
+                "utilisateur": {
+                    "type": "object",
+                    "required": [
+                        "id",
+                        "nom",
+                        "prenom",
+                        "courriel",
+                        "cle_api",
+                        "password"
+
+                    ],
+                    "properties": {
+                        "id": {
+                            "type": "integer"
+                        },
+                        "nom": {
+                            "type": "string"
+                        },
+                        "prenom": {
+                            "type": "string"
+                        },
+                        "courriel": {
+                            "type": "string"
+                        },
+                        "cle_api": {
+                            "type": "string"
+                        },
+                        "password": {
+                            "type": "string"
                         }
                     }
                 }
