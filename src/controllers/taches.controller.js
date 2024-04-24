@@ -47,13 +47,13 @@ exports.listeTache = (req, res) => {
     }
 
 
-    Taches.listeTache(req.query.utilisateur_id)
+    Taches.listeTache(req.params.utilisateur_id)
         .then((Taches) => {
             // S'il n'y a aucun résultat, on retourne un message d'erreur avec le code 404
             if (!Taches[0]) {
                 res.status(404);
                 res.send({
-                    message: `tâches introuvable ${req.query.utilisateur_id}`
+                    message: `tâches introuvable ${req.params.utilisateur_id}`
                 });
                 return;
             }
@@ -69,7 +69,7 @@ exports.listeTache = (req, res) => {
             console.log('Erreur : ', erreur);
             res.status(500)
             res.send({
-                message: "Erreur lors de la récupération des tâches avec l'utilisateur" + req.query.utilisateur_id
+                message: "Erreur lors de la récupération des tâches avec l'utilisateur" + req.params.utilisateur_id
             });
         });
 };
@@ -84,13 +84,13 @@ exports.listeTacheComplete = (req, res) => {
         return;
     }
 
-    Taches.listeTacheComplete(req.query.utilisateur_id)
+    Taches.listeTacheComplete(req.params.utilisateur_id)
         .then((Taches) => {
             // S'il n'y a aucun résultat, on retourne un message d'erreur avec le code 404
             if (!Taches[0]) {
                 res.status(404);
                 res.send({
-                    message: `tâches introuvable ${req.query.utilisateur_id}`
+                    message: `tâches introuvable ${req.params.utilisateur_id}`
                 });
                 return;
             }
