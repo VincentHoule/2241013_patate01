@@ -35,7 +35,8 @@ Utilisateurs.ajouterUnUtilisateur = (nom, prenom, courriel, mot_de_passe) => {
 
 Utilisateurs.validationCle = (cleApi) => {
     return new Promise((resolve, reject) => {
-        const requete = `SELECT COUNT(*) AS nbUtilisateur FROM utilisateurs WHERE cle_api = "$1"; `;
+        cleApi = toString(cleApi);
+        const requete = `SELECT COUNT(*) AS nbUtilisateur FROM utilisateurs WHERE cle_api = $1 ; `;
         const parametres = [cleApi];
         console.log(cleApi);
         sql.query(requete, parametres, (erreur, resultat) => {
