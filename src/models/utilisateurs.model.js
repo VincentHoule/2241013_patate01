@@ -76,7 +76,7 @@ Utilisateurs.voirCle = (courriel, mot_de_passe) => {
 
 Utilisateurs.nouvelleCle = (courriel, mot_de_passe, resultat) => {
     return new Promise((resolve, reject) => {
-
+        console.log(resultat)
         bcrypt.compare(mot_de_passe, resultat[0].password)
         .then(res => {
             resolve(resultat[0].cleApi);

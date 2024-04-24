@@ -142,25 +142,23 @@ exports.modifierTache = (req, res) => {
     if (!req.params.id || parseInt(req.params.id) <= 0) {
         message += "L'id est invalide ou absent. "
     }
-    if (!req.body.nom || (req.body.nom.length <= 0 && req.body.nom.length > 100)) {
-        message += "Le nom est vide, manquant ou invalide. ";
+    if (!req.body.titre || (req.body.titre.length <= 0 && req.body.titre.length > 100)) {
+        message += "Le titre est vide, manquant ou invalide. ";
     }
-    if (!req.body.type_primaire || (req.body.type_primaire.length <= 0 && req.body.type_primaire.length > 100)) {
-        message += "Le type primaire est vide, manquant ou invalide. ";
+    if (!req.body.description || req.body.description.length > 500) {
+        message += "La description est manquant ou invalide. ";
     }
-    if (!req.body.type_secondaire || req.body.type_secondaire.length < 0 && req.body.type_secondaire.length > 100) {
-        message += "Le type secondaire est manquant ou invalide. ";
+    if (!req.body.date_debut) {
+        message += "La date de debut est manquant ou invalide. ";
     }
 
-    if (!req.body.pv || parseInt(req.body.pv) < 0) {
-        message += "Les pv est vide ou invalide. ";
+    if (!req.body.date_echeance) {
+        message += "La date d'échéance est vide ou invalide. ";
     }
-    if (!req.body.attaque || parseInt(req.body.attaque) < 0) {
+    if (req.body.complete == null) {
         message += "L'attaque est vide ou invalide. ";
     }
-    if (!req.body.defense || parseInt(req.body.defense) < 0) {
-        message += "La defense est vide ou invalide. ";
-    }
+
 
     // Envoie du message d'erreur
     if (message != "") {
