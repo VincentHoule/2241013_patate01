@@ -43,7 +43,7 @@ Utilisateurs.validationCle = (cleApi) => {
                 console.log(`Erreur sqlState ${erreur.sqlState} : ${erreur.sqlMessage}`);
                 reject(erreur);
             }
-            console.log(resultat);
+            console.log(resultat.rows);
             resolve(resultat.rows[0].nbUtilisateur > 0);
         });
     });
