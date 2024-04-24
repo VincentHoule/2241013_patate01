@@ -191,7 +191,7 @@ exports.modifierTache = (req, res) => {
                     // Envoie du succès de la requete
                     res.send({
                         Message: "La tâche " + resultat[0].titre + " a été modifié avec succès, elle est " + toString(!resultat[0].complete),
-                        Tache: info
+                        Tache: resultat[0]
                     });
                 })
                 .catch((erreur) => {
