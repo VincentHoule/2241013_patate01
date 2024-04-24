@@ -13,14 +13,14 @@ const swaggerOptions = {
 
 const app = express();
 const PORT = 3000;
-
+/*
 const fs = require('fs')
 const morgan = require('morgan');
 const chemin = require('path');
 const accessLog = fs.createWriteStream(chemin.join(__dirname, 'access.log'), { flags: 'a' });
 
 app.use(morgan(':date[clf] :method :url :status :res[content-length] - :response-time ms', { stream: accessLog }));
-
+*/
 app.use('/tachesMemoire/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
 app.use(express.json());
 app.use('/tachesMemoire/taches', require('./src/routes/taches'));

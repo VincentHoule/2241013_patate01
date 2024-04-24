@@ -9,7 +9,7 @@ router.post('/', (req, res) => {
 });
 
 
-router.get('/cle', (req, res) => {
+router.get('/cle', async (req, res) => {
     utilisateurController.voirCle(req, res);
 } )
 

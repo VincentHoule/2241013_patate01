@@ -65,8 +65,8 @@ exports.voirCle = (req, res) => {
     Utilisateurs.voirCle(req.body.courriel, req.body.mot_de_passe)
         .then((resultat) => {
             console.log(resultat);
-            await(Utilisateurs.nouvelleCle(req.body.courriel, req.body.mot_de_passe, resultat));
-            await(Utilisateurs.voirCle(req.body.courriel, req.body.mot_de_passe))
+            Utilisateurs.nouvelleCle(req.body.courriel, req.body.mot_de_passe, resultat);
+            Utilisateurs.voirCle(req.body.courriel, req.body.mot_de_passe)
                 .then((resultat2) => {
                     res.send({
                         cle: resultat2
