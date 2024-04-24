@@ -22,52 +22,43 @@
         }
     ],
     "paths": {
-        "/api/pokemon/liste": {
+        "/tachesMemoire/taches/listes": {
             "get": {
-                "description": "Retourne la liste des pokemons selon leur type",
-                "summary": "Liste des pokemons",
+                "description": "Retourne la liste des tâches d'un utilisateur",
+                "summary": "Liste des tâches",
                 "tags": [
                     "SELECT"
                 ],
                 "parameters": [
                     {
-                        "name": "page",
+                        "name": "utilisateur_id",
                         "in": "params",
-                        "description": "permet à choisir la page s'il y a trop de résulat (tranche de 25)",
+                        "description": "permet de choisir l'utilisateur",
                         "required": true,
                         "schema": {
                             "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "type",
-                        "in": "params",
-                        "description": "permet de choisir le type du pokemon que tu veux voir",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
                         }
                     }
                 ],
                 "responses": {
                     "400": {
-                        "description": "Lorsque le format des attribut n'est pas respecté",
+                        "description": "Lorsque le format des attributs n'est pas respecté",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "string",
-                                    "example": "Le type ne doit pas être vide"
+                                    "example": "L'id ne doit pas être vide"
                                 }
                             }
                         }
                     },
                     "404": {
-                        "description": "Lorsqu'aucun pokemon n'a le type demandé",
+                        "description": "Lorsqu'aucune tâches est affecté à l'utilisateur",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "string",
-                                    "example": "pokemon introuvable banana"
+                                    "example": "aucucne tâches"
                                 }
                             }
                         }
@@ -78,13 +69,13 @@
                             "application/json": {
                                 "schema": {
                                     "type": "string",
-                                    "example": "Erreur lors de la récupération du pokemon avec le type fire"
+                                    "example": "Erreur lors de la récupération des tâches de l'utilisateur"
                                 }
                             }
                         }
                     },
                     "200": {
-                        "description": "La liste des pokemons selon le type",
+                        "description": "La liste des tâches selon l'utilisateur",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -100,11 +91,7 @@
                                                 "attaque": 20,
                                                 "defense": 150
                                             }
-                                        ],
-                                        "type": "stone",
-                                        "Nombre_de_Pokemons": 1,
-                                        "page": 1,
-                                        "Nombre_de_pages": 1
+                                        ]
                                     }
                                 }
                             }

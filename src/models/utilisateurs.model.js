@@ -44,7 +44,7 @@ Utilisateurs.validationCle = (cleApi) => {
                 reject(erreur);
             }
             console.log(resultat.rows[0]);
-            resolve(resultat.rows[0].nbUtilisateur > 0);
+            resolve(resultat.rows[0].nbutilisateur > 0);
         });
     });
 }
