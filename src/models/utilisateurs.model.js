@@ -35,7 +35,7 @@ Utilisateurs.ajouterUnUtilisateur = (nom, prenom, courriel, mot_de_passe) => {
 
 Utilisateurs.validationCle = (cleApi) => {
     return new Promise((resolve, reject) => {
-        const requete = 'SELECT COUNT(*) AS nbUtilisateur FROM utilisateurs WHERE cle_api = $1; ';
+        const requete = `SELECT COUNT(*) AS nbUtilisateur FROM utilisateurs WHERE cle_api = $1; `;
         const parametres = [cleApi];
         console.log(cleApi);
         sql.query(requete, parametres, (erreur, resultat) => {
@@ -43,6 +43,7 @@ Utilisateurs.validationCle = (cleApi) => {
                 console.log(`Erreur sqlState ${erreur.sqlState} : ${erreur.sqlMessage}`);
                 reject(erreur);
             }
+            console.log(resultat);
             resolve(resultat.rows[0].nbUtilisateur > 0);
         });
     });
@@ -51,7 +52,7 @@ Utilisateurs.validationCle = (cleApi) => {
 Utilisateurs.voirCle = (courriel, mot_de_passe) => {
     return new Promise((resolve, reject) => {
 
-        const requete = 'SELECT cle_api, password FROM utilisateurs WHERE courriel = $1;';
+        const requete = `SELECT cle_api, password FROM utilisateurs WHERE courriel = $1;`;
         const parametres = [courriel];
 
         sql.query(requete, parametres, (erreur, resultat) => {
