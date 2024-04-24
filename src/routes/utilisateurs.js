@@ -13,8 +13,5 @@ router.get('/cle', (req, res) => {
     utilisateurController.voirCle(req, res);
 } )
 
-router.get('/cle:nouvelle', (req, res) => {
-    utilisateurController.voirCle(req, res);
-} )
 
 module.exports = router;

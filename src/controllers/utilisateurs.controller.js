@@ -7,8 +7,8 @@ exports.ajouterUnUtilisateur = (req, res) => {
     if (!req.body.nom || (req.body.nom.length <= 0 && req.body.nom.length > 254)) {
         message += "Le nom doit être valide selon le format. "
     }
-    
-    
+
+
     if (!req.body.prenom || (req.body.prenom.length <= 0 && req.body.prenom.length > 254)) {
         message += "Le prenom doit être valide selon le format. "
     }
@@ -56,31 +56,33 @@ exports.voirCle = (req, res) => {
         message += "Le mot de passe doit être valide selon le format. "
     }
 
-
-    if(req.params.nouvelle){
-        if (req.params.nouvelle == "1") {
-        
-            Utilisateurs.nouvelleCle(req.body.courriel, req.body.mot_de_passe);
-    
-        }
-        else{
-            message += "Le paramêtre nouvelle doit être égale à 1 pour changer de cle. "
-        }
-    }
-
     if (message != "") {
         res.status(404);
         res.send({ message: `${message}` });
         return;
     }
-    
+
 
     Utilisateurs.voirCle(req.body.courriel, req.body.mot_de_passe)
         .then((resultat) => {
 
-            res.send({
-                cle: resultat
-            })
+            Utilisateurs.nouvelleCle(req.body.courriel, req.body.mot_de_passe, resultat);
+            Utilisateurs.voirCle(req.body.courriel, req.body.mot_de_passe)
+                .then((resultat2) => {
+                    res.send({
+                        cle: resultat2
+                    })
+
+                })
+                .catch((erreur) => {
+                    console.log('Erreur : ', erreur);
+                    res.status(500);
+                    res.send({
+                        message: "Erreur lors de la selection. "
+
+                    });
+                })
+
 
         })
         .catch((erreur) => {
@@ -91,4 +93,7 @@ exports.voirCle = (req, res) => {
 
             });
         })
+
+
 }
+

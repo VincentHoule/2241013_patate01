@@ -44,7 +44,7 @@ Utilisateurs.validationCle = (cleApi) => {
                 console.log(`Erreur sqlState ${erreur.sqlState} : ${erreur.sqlMessage}`);
                 reject(erreur);
             }
-            resolve(resultat[0].nbUtilisateur > 0);
+            resolve(resultat.rows[0].nbUtilisateur > 0);
         });
     });
 }
@@ -61,7 +61,7 @@ Utilisateurs.voirCle = (courriel, mot_de_passe) => {
             }
             bcrypt.compare(mot_de_passe, resultat.rows[0].password)
                 .then(res => {
-                    resolve(resultat.rows);
+                    resolve(resultat.rows[0].cle_api);
                 })
                 .catch(res => {
                     res.status(404);
@@ -74,7 +74,7 @@ Utilisateurs.voirCle = (courriel, mot_de_passe) => {
     })
 }
 
-Utilisateurs.nouvelleCle = (courriel, mot_de_passe) => {
+Utilisateurs.nouvelleCle = (courriel, mot_de_passe, resultat) => {
     return new Promise((resolve, reject) => {
 
         bcrypt.compare(mot_de_passe, resultat[0].password)
@@ -89,6 +89,7 @@ Utilisateurs.nouvelleCle = (courriel, mot_de_passe) => {
                 if (erreur) {
                     reject(erreur);
                 }
+                Utilisateurs.voirCle(courriel, mot_de_passe);
                
             })
         })
