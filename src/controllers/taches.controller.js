@@ -228,13 +228,34 @@ exports.supprimerTache = (req, res) => {
         });
         return;
     }
-    info = Taches.detailTache(req.params.id);
+    var info;
+    
+    Taches.detailTache(req.params.id)
+        .then((resultat) => {
+            if (!resultat[0]) {
+                res.status(404);
+                res.send({
+                    message: `tâches introuvable ${req.params.id}`
+                });
+                return;
+            }
+            info = resultat
+        })
+        .catch((erreur) => {
+            // Envoie de l'échec de la requete
+            console.log('Erreur : ', erreur);
+            res.status(500);
+            res.send({
+                message: "Erreur lors de la selection"
+            });
+            return;
+        });
 
     Taches.supprimerTache(req.params.id)
         .then(() => {
             // Envoie du succès de la requete
             res.send({
-                Message: "La tache "+ info[0].titre + " a été supprimé avec succès",
+                Message: "La tache " + info[0].titre + " a été supprimé avec succès",
                 Tache: info
 
             });
