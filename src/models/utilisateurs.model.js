@@ -76,11 +76,10 @@ Utilisateurs.voirCle = (courriel, mot_de_passe) => {
 
 Utilisateurs.nouvelleCle = (courriel, mot_de_passe, resultat) => {
     return new Promise((resolve, reject) => {
-        console.log(resultat)
         bcrypt.compare(mot_de_passe, resultat.password)
         .then(res => {
             let api = uuidv4.v4();
-            const requete = 'UPDATE utilisateurs SET cle_api = ? WHERE courriel = ?;';
+            const requete = 'UPDATE utilisateurs SET cle_api = $1 WHERE courriel = $1;';
             const parametres = [api, courriel];
     
             sql.query(requete, parametres, (erreur, resultat) => {
