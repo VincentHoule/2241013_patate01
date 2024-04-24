@@ -177,15 +177,33 @@ exports.modifierTache = (req, res) => {
         });
         return;
     }
+    var info;
+    Taches.detailTache(req.params.id)
+        .then((resultat) => {
+            if (!resultat[0]) {
+                res.status(404);
+                res.send({
+                    message: `tâches introuvable ${req.params.id}`
+                });
+                return;
+            }
+            info = resultat
+        })
+        .catch((erreur) => {
+            // Envoie de l'échec de la requete
+            console.log('Erreur : ', erreur);
+            res.status(500);
+            res.send({
+                message: "Erreur lors de la selection"
+            });
+        });
 
-    info = Taches.detailTache(req.params.id)
-        
-    Taches.modifierTache(!info.complete)
+    Taches.modifierTache(!info[0].complete)
         .then(() => {
             // Envoie du succès de la requete
             res.send({
-                Message: "La tâche " + info.titre + " a été modifié avec succès, elle est " + toString(info.complete),
-                Tache : info
+                Message: "La tâche " + info[0].titre + " a été modifié avec succès, elle est " + toString(info[0].complete),
+                Tache: info
             });
         })
         .catch((erreur) => {
