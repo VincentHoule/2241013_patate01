@@ -33,6 +33,11 @@ router.put('/:id', authentification, (req, res) => {
     tachesController.completeTache(req, res);
 });
 
+router.put('modifier/:id', authentification, (req, res) => {
+    
+    sousTachesController.modifierTache(req, res);
+});
+
 router.delete('/:id', authentification, (req, res) => {
     
     tachesController.supprimerTache(req, res);

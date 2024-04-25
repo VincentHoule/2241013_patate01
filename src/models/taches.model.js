@@ -84,6 +84,23 @@ Taches.ajouterTache = (utilisateur_id, titre, description, date_debut, date_eche
 
 }
 
+Taches.modifierTache = (titre, description, date_debut, date_echeance, complete, id) => {
+    return new Promise((resolve, reject) => {
+
+        const requete = 'UPDATE taches SET titre = $1, SET description = $2, SET date_debut = $3, SET date_echeance = $4 SET complete = $5 WHERE id = $6;';
+        const params = [titre, description, date_debut, date_echeance, complete, id];
+
+        sql.query(requete, params, (erreur, resultat) => {
+            if (erreur) {
+                // S'il y a une erreur, je la retourne avec reject()
+                reject(erreur);
+            }
+            // Sinon je retourne le résultat sans faire de validation, c'est possible que le résultat soit vide
+            resolve(resultat.rows);
+        })
+    });
+};
+
 Taches.completeTache = (status) => {
     return new Promise((resolve, reject) => {
 
