@@ -27,9 +27,9 @@ SousTaches.ajouterSousTache = (tache_id, titre,  complete) => {
 
 };
 
-SousTaches.detailSousTache = (id) => {
+SousTaches.detailSousTache = (tache_id) => {
     return new Promise((resolve, reject) => {
-        const requete = 'SELECT * FROM sousTache WHERE id =  $1';
+        const requete = 'SELECT * FROM sousTache WHERE tache_id = $1';
         const params = [id]
 
         sql.query(requete, params, (erreur, resultat) => {
@@ -45,7 +45,7 @@ SousTaches.detailSousTache = (id) => {
 SousTaches.completeSousTache = (id, complete) => {
     return new Promise((resolve, reject) => {
 
-        const requete = 'UPDATE sousTaches  complete = $3 WHERE id = $4 ';
+        const requete = 'UPDATE sousTaches complete = $1 WHERE id = $2 ';
         const params = [complete, parseInt(id)];
 
         sql.query(requete, params, (erreur, resultat) => {

@@ -24,7 +24,22 @@ exports.detailTache = (req, res) => {
                 return;
             }
             // Sinon on retourne le premier objet du tableau de résultat car on ne devrait avoir qu'un pokemon par id
-            res.send(Taches[0]);
+            Taches.detailSousTache(req.params.id)
+                .then((sousTache) => {
+
+                    res.send({
+                        Tache: Taches[0],
+                        SousTaches: sousTache
+                    });
+
+                })
+                .catch((erreur) => {
+                    console.log('Erreur : ', erreur);
+                    res.status(500)
+                    res.send({
+                        message: "Erreur lors de la récupération des sous-tâche avec l'id " + req.params.id
+                    });
+                });
         })
         // S'il y a eu une erreur au niveau de la requête, on retourne un erreur 500 car c'est du serveur que provient l'erreur.
         .catch((erreur) => {
@@ -185,9 +200,9 @@ exports.completeTache = (req, res) => {
                     message: `tâches introuvable ${req.params.id}`
                 });
                 return;
-                
+
             }
-            
+
             Taches.completeTache(!resultat[0].complete)
                 .then(() => {
                     // Envoie du succès de la requete
