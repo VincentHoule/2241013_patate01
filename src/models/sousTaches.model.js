@@ -30,7 +30,7 @@ SousTaches.ajouterSousTache = (tache_id, titre,  complete) => {
 SousTaches.detailSousTache = (tache_id) => {
     return new Promise((resolve, reject) => {
         const requete = 'SELECT * FROM sousTache WHERE tache_id = $1';
-        const params = [id]
+        const params = [tache_id]
 
         sql.query(requete, params, (erreur, resultat) => {
             if(erreur)
