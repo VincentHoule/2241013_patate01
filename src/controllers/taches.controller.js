@@ -238,9 +238,6 @@ exports.modifierTache = (req, res) => {
     if (!req.body.description || req.body.description.length < 0 || req.body.description.length > 500) {
         message += "Le type primaire est manquant ou invalide. ";
     }
-    if (!req.body.utilisateur_id || parseInt(req.body.utilisateur_id) < 0) {
-        message += "L'id de l'utilisateur est vide ou invalide. ";
-    }
     if (!req.body.date_debut) {
         message += "La date de debut est vide ou invalide. ";
     }

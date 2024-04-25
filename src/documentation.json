@@ -24,7 +24,7 @@
     "paths": {
         "/tachesMemoire/taches/listes": {
             "get": {
-                "description": "Retourne la liste des tâches d'un utilisateur",
+                "description": "Retourne la liste des tâches d'un utilisateur qui ne sont pas completées",
                 "summary": "Liste des tâches",
                 "tags": [
                     "SELECT"
@@ -36,7 +36,8 @@
                         "description": "permet de choisir l'utilisateur",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example": 2
                         }
                     }
                 ],
@@ -58,7 +59,7 @@
                             "application/json": {
                                 "schema": {
                                     "type": "string",
-                                    "example": "aucucne tâches"
+                                    "example": "tâches introuvable"
                                 }
                             }
                         }
@@ -69,7 +70,7 @@
                             "application/json": {
                                 "schema": {
                                     "type": "string",
-                                    "example": "Erreur lors de la récupération des tâches de l'utilisateur"
+                                    "example": "Erreur lors de la récupération des tâches avec l'utilisateur"
                                 }
                             }
                         }
