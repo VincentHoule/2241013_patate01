@@ -8,7 +8,7 @@ exports.ajouterSousTache = (req, res) => {
     if (!req.body.titre || (req.body.titre.length <= 0 && req.body.titre.length > 100)) {
         message += "Le nom est vide, manquant ou invalide. ";
     }
-    if (!req.params.tache_id || parseInt(req.params.tache_id) <= 0) {
+    if (!req.body.tache_id || parseInt(req.body.tache_id) <= 0) {
         res.status(400);
         res.send({
             message: "L'id de la tâches est obligatoire et doit être supérieur à 0"
