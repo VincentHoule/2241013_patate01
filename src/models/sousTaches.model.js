@@ -96,7 +96,7 @@ SousTaches.completeSousTache = (complete, id) => {
 SousTaches.supprimerSousTache = (id) => {
     return new Promise((resolve, reject) => {
 
-        const requete = 'DELETE FROM sousTaches WHERE id = $1;';
+        const requete = 'DELETE FROM sous_taches WHERE id = $1;';
         const params = [id];
 
         sql.query(requete, params, (erreur, resultat) => {

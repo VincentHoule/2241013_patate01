@@ -1,15 +1,13 @@
 const SousTaches = require("../models/sousTaches.model.js");
 
 exports.ajouterSousTache = (req, res) => {
-
     var message = ""; // Variable de message d'erreur
-
     // Protection contre les paramêtres invalides
     if (!req.body.titre || req.body.titre.length <= 0 || req.body.titre.length > 100) {
         message += "Le nom est vide, manquant ou invalide. ";
     }
     if (!req.body.tache_id || parseInt(req.body.tache_id) <= 0) {
-        message += "L'id de la tâches est obligatoire et doit être supérieur à 0";
+        message += "L'id de la tâches est obligatoire et doit être supérieur à 0. ";
     }
     if (req.body.complete == null) {
         message += "Le parametre complete est vide, manquant ou invalide. ";
@@ -23,9 +21,8 @@ exports.ajouterSousTache = (req, res) => {
 
     SousTaches.ajouterSousTache(req.body.tache_id, req.body.titre, req.body.complete)
         .then(() => {
-
             res.send({
-                Info: "La sous-tâche a été ajouté avec succès",
+                Info: "La sous-tâche a été ajouté avec succès. ",
                 SousTache: req.body
             });
         })
@@ -33,30 +30,26 @@ exports.ajouterSousTache = (req, res) => {
             console.log('Erreur : ', erreur);
             res.status(500);
             res.send({
-                message: "Erreur lors de l'insertion"
+                message: "Erreur lors de l'insertion. "
             });
         });
 };
 
 exports.modifierSousTache = (req, res) => {
-
     var message = ""; // Variable de message d'erreur
-
     // Protection contre les paramêtres invalides
     if (!req.body.titre || req.body.titre.length <= 0 || req.body.titre.length > 100) {
         message += "Le nom est vide, manquant ou invalide. ";
     }
     if (!req.body.tache_id || parseInt(req.body.tache_id) <= 0) {
-        message += "L'id de la tâches est obligatoire et doit être supérieur à 0";
+        message += "L'id de la tâches est obligatoire et doit être supérieur à 0. ";
     }
     if (req.body.complete == null) {
         message += "Le parametre complete est vide, manquant ou invalide. ";
     }
-
     if (!req.params.id || parseInt(req.params.id) <= 0) {
-        message += "L'id de la sous-tâche est obligatoire et doit être supérieur à 0";
+        message += "L'id de la sous-tâche est obligatoire et doit être supérieur à 0. ";
     }
-
     if (message != "") {
         res.status(404);
         res.send({ message: `${message}` });
@@ -76,7 +69,7 @@ exports.modifierSousTache = (req, res) => {
                         return;
                     }
                     res.send({
-                        Message: "La sous-tâche " + resultat[0].titre + " a été modifié avec succès",
+                        Message: `La sous-tâche ${resultat[0].titre} a été modifié avec succès`,
                         SousTache: resultat[0]
                     });
                 })
@@ -85,7 +78,7 @@ exports.modifierSousTache = (req, res) => {
                     console.log('Erreur : ', erreur);
                     res.status(500);
                     res.send({
-                        message: "Erreur lors de la selection"
+                        message: "Erreur lors de la selection. "
                     });
                     return;
                 });
@@ -96,7 +89,7 @@ exports.modifierSousTache = (req, res) => {
             console.log('Erreur : ', erreur);
             res.status(500);
             res.send({
-                message: "Erreur lors de la modification"
+                message: "Erreur lors de la modification. "
             });
         });
 
@@ -108,7 +101,7 @@ exports.completeSousTache = (req, res) => {
         res.status(400);
         // Envoie du message d'erreur
         res.send({
-            message: "L'id de la sous-tâche est obligatoire et doit être supérieur à 0"
+            message: "L'id de la sous-tâche est obligatoire et doit être supérieur à 0. "
         });
         return;
     }
@@ -128,7 +121,7 @@ exports.completeSousTache = (req, res) => {
                     // Envoie du succès de la requete
                     resultat[0].complete = !resultat[0].complete
                     res.send({
-                        Message: "La sous-tâche " + resultat[0].titre + " a été modifié avec succès, elle est " + resultat[0].complete,
+                        Message: `La sous-tâche ${resultat[0].titre} a été modifié avec succès, elle est  ${resultat[0].complete}. `,
                         SousTache: resultat[0]
                     });
                 })
@@ -137,7 +130,7 @@ exports.completeSousTache = (req, res) => {
                     console.log('Erreur : ', erreur);
                     res.status(500);
                     res.send({
-                        message: "Erreur lors de la modification"
+                        message: "Erreur lors de la modification. "
                     });
                 });
 
@@ -147,7 +140,7 @@ exports.completeSousTache = (req, res) => {
             console.log('Erreur : ', erreur);
             res.status(500);
             res.send({
-                message: "Erreur lors de la selection"
+                message: "Erreur lors de la selection. "
             });
             return;
         });
@@ -170,7 +163,7 @@ exports.supprimerSousTache = (req, res) => {
             if (!resultat[0]) {
                 res.status(404);
                 res.send({
-                    message: `sous tâches introuvable ${req.params.id}`
+                    message: `sous tâches introuvable ${req.params.id}. `
                 });
                 return;
             }
