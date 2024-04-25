@@ -175,11 +175,11 @@ exports.supprimerSousTache = (req, res) => {
                 return;
             }
 
-            SousTaches.supprimerTache(req.params.id)
+            SousTaches.supprimerSousTache(req.params.id)
                 .then(() => {
                     // Envoie du succès de la requete
                     res.send({
-                        Message: "La sous-tâche " + resultat[0].titre + " a été supprimé avec succès. ",
+                        Message: `La sous-tâche ${resultat[0].titre} a été supprimé avec succès. `,
                         SousTache: resultat[0]
 
                     });
@@ -189,7 +189,7 @@ exports.supprimerSousTache = (req, res) => {
                     console.log('Erreur : ', erreur);
                     res.status(500);
                     res.send({
-                        message: "Erreur lors de la suppression"
+                        message: "Erreur lors de la suppression. "
                     });
                 });
         })
@@ -198,7 +198,7 @@ exports.supprimerSousTache = (req, res) => {
             console.log('Erreur : ', erreur);
             res.status(500);
             res.send({
-                message: "Erreur lors de la selection"
+                message: "Erreur lors de la selection. "
             });
             return;
         });

@@ -104,7 +104,7 @@ exports.listeTacheComplete = (req, res) => {
             if (!Taches[0]) {
                 res.status(404);
                 res.send({
-                    message: `tâches introuvable ${req.params.utilisateur_id}`
+                    message: `tâches introuvable pour l'utilisateur : ${req.params.utilisateur_id}`
                 });
                 return;
             }
@@ -120,7 +120,7 @@ exports.listeTacheComplete = (req, res) => {
             console.log('Erreur : ', erreur);
             res.status(500)
             res.send({
-                message: "Erreur lors de la récupération des tâches avec l'utilisateur" + req.query.utilisateur_id
+                message: `Erreur lors de la récupération des tâches avec l'utilisateur : ${req.query.utilisateur_id}`
             });
         });
 };
@@ -201,7 +201,7 @@ exports.completeTache = (req, res) => {
                     // Envoie du succès de la requete
                     resultat[0].complete = !resultat[0].complete
                     res.send({
-                        Message: "La tâche " + resultat[0].titre + " a été modifié avec succès, elle est " + resultat[0].complete,
+                        Message: `La tâche ${resultat[0].titre} a été modifié avec succès, elle est ${resultat[0].complete}`,
                         Tache: resultat[0]
                     });
                 })
@@ -270,7 +270,7 @@ exports.modifierTache = (req, res) => {
                         return;
                     }
                     res.send({
-                        Message: "La tâche " + resultat[0].titre + " a été modifié avec succès",
+                        Message: `La tâche ${resultat[0].titre} a été modifié avec succès`,
                         Tache: resultat[0]
                     });
 
@@ -322,7 +322,7 @@ exports.supprimerTache = (req, res) => {
                 .then(() => {
                     // Envoie du succès de la requete
                     res.send({
-                        Message: "La tache " + resultat[0].titre + " a été supprimé avec succès",
+                        Message: `La tache ${resultat[0].titre} a été supprimé avec succès`,
                         Tache: resultat[0]
 
                     });
