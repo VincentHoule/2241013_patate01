@@ -599,7 +599,7 @@
                             "application/json": {
                                 "schema": {
                                     "type": "string",
-                                    "example": "Erreur lors de l'insertion de l'utilisateur"
+                                    "example": "Erreur lors de la selection de l'utilisateur"
                                 }
                             }
                         }
