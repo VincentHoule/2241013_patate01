@@ -25,13 +25,12 @@ exports.ajouterSousTache = (req, res) => {
         return;
     }
 
-    SousTaches.ajouterTache(req.body.nom, req.body.type_primaire, req.body.type_secondaire,
-        req.body.pv, req.body.attaque, req.body.defense)
+    SousTaches.ajouterSousTache(req.body.tache_id, req.body.titre, req.body.complete)
         .then(() => {
             
             res.send({
-                Info: "Le pokemon a été ajouté avec succès",
-                Pokemon: req.body
+                Info: "La sous-tâche a été ajouté avec succès",
+                SousTache: req.body
             });
         })
         .catch((erreur) => {
@@ -50,7 +49,7 @@ exports.completeSousTache = (req, res) => {
 
         // Envoie du message d'erreur
         res.send({
-            message: "L'id du la tâche est obligatoire et doit être supérieur à 0"
+            message: "L'id de la sous-tâche est obligatoire et doit être supérieur à 0"
         });
         return;
     }
@@ -121,8 +120,8 @@ exports.supprimerSousTache = (req, res) => {
                 .then(() => {
                     // Envoie du succès de la requete
                     res.send({
-                        Message: "La sous tâche " + resultat[0].titre + " a été supprimé avec succès. ",
-                        Tache: resultat[0]
+                        Message: "La sous-tâche " + resultat[0].titre + " a été supprimé avec succès. ",
+                        SousTache: resultat[0]
 
                     });
                 })
