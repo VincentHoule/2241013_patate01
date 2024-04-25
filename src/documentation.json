@@ -83,13 +83,7 @@
                                     "example": {
                                         "Tâches": [
                                             {
-                                                "id": 1073,
-                                                "nom": "Cooky",
-                                                "type_primaire": "Rock",
-                                                "type_secondaire": "Stone",
-                                                "pv": 92,
-                                                "attaque": 20,
-                                                "defense": 150
+                                                
                                             }
                                         ]
                                     }
