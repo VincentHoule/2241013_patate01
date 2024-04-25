@@ -1,4 +1,5 @@
 const Taches = require("../models/taches.model.js");
+const SousTaches = require("../models/sousTaches.model.js");
 
 exports.detailTache = (req, res) => {
 
@@ -24,7 +25,7 @@ exports.detailTache = (req, res) => {
                 return;
             }
             // Sinon on retourne le premier objet du tableau de résultat car on ne devrait avoir qu'un pokemon par id
-            Taches.detailSousTache(req.params.id)
+            SousTaches.detailSousTache(req.params.id)
                 .then((sousTache) => {
 
                     res.send({
