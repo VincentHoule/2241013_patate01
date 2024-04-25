@@ -23,23 +23,23 @@ router.get('/:id', authentification, (req, res) => {
 });
 
 router.post('/', authentification, (req, res) => {
-    
+
     tachesController.ajouterTache(req, res);
 });
 
 
 router.put('/:id', authentification, (req, res) => {
-    
+
     tachesController.completeTache(req, res);
 });
 
 router.put('modifier/:id', authentification, (req, res) => {
-    
-    rachesController.modifierTache(req, res);
+
+    tachesController.modifierTache(req, res);
 });
 
 router.delete('/:id', authentification, (req, res) => {
-    
+
     tachesController.supprimerTache(req, res);
 })
 
