@@ -24,7 +24,7 @@ app.use(morgan(':date[clf] :method :url :status :res[content-length] - :response
 app.use('/tachesMemoire/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
 app.use(express.json());
 app.use('/tachesMemoire/taches', require('./src/routes/taches'));
-app.use('/tachesMemoire/taches', require('./src/routes/sousTaches'));
+app.use('/tachesMemoire/sousTaches', require('./src/routes/sousTaches'));
 app.use('/tachesMemoire/utilisateurs', require('./src/routes/utilisateurs'));
 
 app.listen(PORT, () =>{
