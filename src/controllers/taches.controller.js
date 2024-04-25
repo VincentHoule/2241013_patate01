@@ -130,10 +130,10 @@ exports.listeTacheComplete = (req, res) => {
 exports.ajouterTache = (req, res) => {
     var message = ""; // Variable de message d'erreur
     // Protection contre les paramêtres invalides
-    if (!req.body.titre || (req.body.titre.length <= 0 && req.body.titre.length > 100)) {
+    if (!req.body.titre || req.body.titre.length <= 0 || req.body.titre.length > 100) {
         message += "Le nom est vide, manquant ou invalide. ";
     }
-    if (!req.body.description || (req.body.description.length < 0 && req.body.description.length > 500)) {
+    if (!req.body.description || req.body.description.length < 0 || req.body.description.length > 500) {
         message += "Le type primaire est manquant ou invalide. ";
     }
     if (!req.body.utilisateur_id || parseInt(req.body.utilisateur_id) < 0) {
@@ -234,10 +234,10 @@ exports.modifierTache = (req, res) => {
     var message = ""; // Variable de message d'erreur
 
     // Protection contre les paramêtres invalides
-    if (!req.body.titre || (req.body.titre.length <= 0 && req.body.titre.length > 100)) {
+    if (!req.body.titre || req.body.titre.length <= 0 || req.body.titre.length > 100) {
         message += "Le nom est vide, manquant ou invalide. ";
     }
-    if (!req.body.description || (req.body.description.length < 0 && req.body.description.length > 500)) {
+    if (!req.body.description || req.body.description.length < 0 || req.body.description.length > 500) {
         message += "Le type primaire est manquant ou invalide. ";
     }
     if (!req.body.utilisateur_id || parseInt(req.body.utilisateur_id) < 0) {

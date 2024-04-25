@@ -5,7 +5,7 @@ exports.ajouterSousTache = (req, res) => {
     var message = ""; // Variable de message d'erreur
 
     // Protection contre les paramêtres invalides
-    if (!req.body.titre || (req.body.titre.length <= 0 && req.body.titre.length > 100)) {
+    if (!req.body.titre || req.body.titre.length <= 0 || req.body.titre.length > 100) {
         message += "Le nom est vide, manquant ou invalide. ";
     }
     if (!req.body.tache_id || parseInt(req.body.tache_id) <= 0) {
@@ -43,7 +43,7 @@ exports.modifierSousTache = (req, res) => {
     var message = ""; // Variable de message d'erreur
 
     // Protection contre les paramêtres invalides
-    if (!req.body.titre || (req.body.titre.length <= 0 && req.body.titre.length > 100)) {
+    if (!req.body.titre || req.body.titre.length <= 0 || req.body.titre.length > 100) {
         message += "Le nom est vide, manquant ou invalide. ";
     }
     if (!req.body.tache_id || parseInt(req.body.tache_id) <= 0) {
@@ -66,7 +66,7 @@ exports.modifierSousTache = (req, res) => {
     SousTaches.modifierSousTache(req.body.tache_id, req.body.titre, req.body.complete, req.params.id)
         .then(() => {
             // Envoie du succès de la requete
-            SousTaches.detailSousTache(req.params.id)
+            SousTaches.selectSousTache(req.params.id)
                 .then((resultat) => {
                     if (!resultat[0]) {
                         res.status(404);
@@ -113,7 +113,7 @@ exports.completeSousTache = (req, res) => {
         return;
     }
 
-    SousTaches.detailSousTache(req.params.id)
+    SousTaches.selectSousTache(req.params.id)
         .then((resultat) => {
             if (!resultat[0]) {
                 res.status(404);
@@ -165,7 +165,7 @@ exports.supprimerSousTache = (req, res) => {
         return;
     }
 
-    SousTaches.detailSousTache(req.params.id)
+    SousTaches.selectSousTache(req.params.id)
         .then((resultat) => {
             if (!resultat[0]) {
                 res.status(404);

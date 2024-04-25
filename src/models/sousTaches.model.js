@@ -42,6 +42,21 @@ SousTaches.detailSousTache = (tache_id) => {
     })
 };
 
+SousTaches.selectSousTache = (id) => {
+    return new Promise((resolve, reject) => {
+        const requete = 'SELECT * FROM sous_taches WHERE id = $1';
+        const params = [id]
+
+        sql.query(requete, params, (erreur, resultat) => {
+            if(erreur)
+            {
+                reject(erreur)
+            }
+            resolve(resultat.rows)
+        })
+    })
+};
+
 SousTaches.modifierSousTache = (tache_id, titre,  complete, id) => {
     return new Promise((resolve, reject) => {
 
