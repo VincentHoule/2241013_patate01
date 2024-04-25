@@ -28,12 +28,12 @@ router.post('/', authentification, (req, res) => {
 });
 
 
-router.put('/:id', authentification, (req, res) => {
+router.put('/:utilisateur_id', authentification, (req, res) => {
     
     tachesController.completeTache(req, res);
 });
 
-router.put('modifier/:id', authentification, (req, res) => {
+router.put('modifier/:utilisateur_id', authentification, (req, res) => {
     
     sousTachesController.modifierTache(req, res);
 });

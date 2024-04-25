@@ -123,7 +123,7 @@ exports.completeSousTache = (req, res) => {
                 return;
             }
 
-            SousTaches.completeSousTache(!resultat[0].complete)
+            SousTaches.completeSousTache(!resultat[0].complete, req.params.id)
                 .then(() => {
                     // Envoie du succès de la requete
                     resultat[0].complete = !resultat[0].complete

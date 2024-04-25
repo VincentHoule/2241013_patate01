@@ -61,8 +61,6 @@ exports.listeTache = (req, res) => {
         });
         return;
     }
-
-
     Taches.listeTache(req.params.utilisateur_id)
         .then((Taches) => {
             // S'il n'y a aucun résultat, on retourne un message d'erreur avec le code 404

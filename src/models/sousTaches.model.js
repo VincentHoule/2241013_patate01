@@ -76,7 +76,7 @@ SousTaches.modifierSousTache = (tache_id, titre,  complete, id) => {
 };
 
 
-SousTaches.completeSousTache = (id, complete) => {
+SousTaches.completeSousTache = (complete, id) => {
     return new Promise((resolve, reject) => {
 
         const requete = 'UPDATE sous_taches SET complete = $1 WHERE id = $2 ';
