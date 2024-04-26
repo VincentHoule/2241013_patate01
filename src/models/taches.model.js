@@ -69,7 +69,7 @@ Taches.listeTache = (utilisateur_id) => {
 Taches.ajouterTache = (utilisateur_id, titre, description, date_debut, date_echeance, complete) => {
     return new Promise((resolve, reject) => {
 
-        const requete = 'INSERT INTO taches ( utilisateur_id, titre, description, date_debut, date_echeance, complete) VALUES ($1, $2, $3, $4, $5, $6) ';
+        const requete = 'INSERT taches ( utilisateur_id, titre, description, date_debut, date_echeance, complete) VALUES ($1, $2, $3, $4, $5, $6) ';
         const params = [utilisateur_id, titre, description, date_debut, date_echeance, complete]
 
         sql.query(requete, params, (erreur, resultat) => {
