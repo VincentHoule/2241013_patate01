@@ -27,16 +27,17 @@ router.post('/', authentification, (req, res) => {
     tachesController.ajouterTache(req, res);
 });
 
-router.put('modifier/:id', authentification, (req, res) => {
+router.put('/:id', authentification, (req, res) => { // mettre id en header
 
-    tachesController.modifierTache(req, res);
+    if(!req.query.modifier &&req.query.modifier == 1)
+    {
+        tachesController.modifierTache(req, res);
+    }
+    else{
+        tachesController.completeTache(req, res);
+    }
+    
 });
-
-router.put('/:id', authentification, (req, res) => {
-
-    tachesController.completeTache(req, res);
-});
-
 
 router.delete('/:id', authentification, (req, res) => {
 
