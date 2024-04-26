@@ -39,7 +39,7 @@ exports.modifierSousTache = (req, res) => {
     var message = ""; // Variable de message d'erreur
     // Protection contre les paramêtres invalides
     if (!req.body.titre || req.body.titre.length <= 0 || req.body.titre.length > 100) {
-        message += "Le nom est vide, manquant ou invalide. ";
+        message += "Le titre est vide, manquant ou invalide. ";
     }
     if (!req.body.tache_id || parseInt(req.body.tache_id) <= 0) {
         message += "L'id de la tâches est obligatoire et doit être supérieur à 0. ";

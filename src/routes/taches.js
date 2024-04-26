@@ -29,15 +29,14 @@ router.post('/', authentification, (req, res) => {
 
 router.put('/:id', authentification, (req, res) => { // mettre id en header
 
-    if(!req.query.modifier &&req.query.modifier == 1)
-    {
-        tachesController.modifierTache(req, res);
-    }
-    else{
-        tachesController.completeTache(req, res);
-    }
-    
+    tachesController.modifierTache(req, res);
 });
+
+router.patch('/:id', authentification, (req, res) => { // mettre id en header
+
+    tachesController.completeTache(req, res);
+});
+
 
 router.delete('/:id', authentification, (req, res) => {
 
