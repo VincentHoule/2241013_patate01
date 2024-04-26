@@ -60,7 +60,7 @@ SousTaches.selectSousTache = (id) => {
 SousTaches.modifierSousTache = (tache_id, titre,  complete, id) => {
     return new Promise((resolve, reject) => {
 
-        const requete = 'UPDATE sous_taches SET tache_id = $1, SET titre = $2 SET complete = $3 where id = $4 ';
+        const requete = 'UPDATE sous_taches SET tache_id = $1,  titre = $2, complete = $3 where id = $4 ';
         const params = [tache_id, titre, complete, id]
 
         sql.query(requete, params, (erreur, resultat) => {
