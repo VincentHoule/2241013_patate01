@@ -69,7 +69,7 @@ SousTaches.modifierSousTache = (tache_id, titre,  complete, id) => {
                 reject(erreur);
             }
             // Sinon je retourne le résultat sans faire de validation, c'est possible que le résultat soit vide
-            resolve(resultat.rows);
+            resolve();
         })
     });
 
@@ -88,7 +88,7 @@ SousTaches.completeSousTache = (complete, id) => {
                 reject(erreur);
             }
             // Sinon je retourne le résultat sans faire de validation, c'est possible que le résultat soit vide
-            resolve(resultat.rows);
+            resolve();
         })
     });
 };
@@ -105,7 +105,7 @@ SousTaches.supprimerSousTache = (id) => {
                 reject(erreur);
             }
             // Sinon je retourne le résultat sans faire de validation, c'est possible que le résultat soit vide
-            resolve(resultat.rows);
+            resolve();
         })
     });
 

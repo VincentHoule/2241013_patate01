@@ -78,7 +78,7 @@ Taches.ajouterTache = (utilisateur_id, titre, description, date_debut, date_eche
                 reject(erreur);
             }
             // Sinon je retourne le résultat sans faire de validation, c'est possible que le résultat soit vide
-            resolve(resultat.rows);
+            resolve();
         })
     });
 
@@ -96,7 +96,7 @@ Taches.modifierTache = (titre, description, date_debut, date_echeance, complete,
                 reject(erreur);
             }
             // Sinon je retourne le résultat sans faire de validation, c'est possible que le résultat soit vide
-            resolve(resultat.rows);
+            resolve();
         })
     });
 };
@@ -113,7 +113,7 @@ Taches.completeTache = (status) => {
                 reject(erreur);
             }
             // Sinon je retourne le résultat sans faire de validation, c'est possible que le résultat soit vide
-            resolve(resultat.rows);
+            resolve();
         })
     });
 };
@@ -130,7 +130,7 @@ Taches.supprimerTache = (id) => {
                 reject(erreur);
             }
             // Sinon je retourne le résultat sans faire de validation, c'est possible que le résultat soit vide
-            resolve(resultat.rows);
+            resolve();
         })
     });
 
