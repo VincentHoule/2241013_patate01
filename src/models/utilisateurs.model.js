@@ -49,6 +49,23 @@ Utilisateurs.validationCle = (cleApi) => {
     });
 }
 
+Utilisateurs.bonneCle = (cleApi, id) => {
+    return new Promise((resolve, reject) => {
+        const cle_api = cleApi.split(' ')[1];
+        const requete = `SELECT * FROM utilisateurs WHERE id = $1 AND cle_api = $2`;
+        const parametres = [id, cle_api];
+
+        await - sql.query(requete, parametres, (erreur, resultat) => {
+            if (erreur) {
+                console.log(`Erreur sqlState ${erreur.sqlState} : ${erreur.sqlMessage}`);
+                reject(erreur);
+            }
+
+            resolve(resultat.rows)
+        })
+    });
+}
+
 Utilisateurs.voirCle = (courriel, mot_de_passe) => {
     return new Promise((resolve, reject) => {
 
@@ -77,24 +94,24 @@ Utilisateurs.voirCle = (courriel, mot_de_passe) => {
 Utilisateurs.nouvelleCle = (courriel, mot_de_passe, resultat) => {
     return new Promise((resolve, reject) => {
         bcrypt.compare(mot_de_passe, resultat.password)
-        .then(res => {
-            let api = uuidv4.v4();
-            const requete = 'UPDATE utilisateurs SET cle_api = $1 WHERE courriel = $2;';
-            const parametres = [api, courriel];
-    
-            sql.query(requete, parametres, (erreur, resultat) => {
-                if (erreur) {
-                    reject(erreur);
-                }
-                resolve(api);
+            .then(res => {
+                let api = uuidv4.v4();
+                const requete = 'UPDATE utilisateurs SET cle_api = $1 WHERE courriel = $2;';
+                const parametres = [api, courriel];
+
+                sql.query(requete, parametres, (erreur, resultat) => {
+                    if (erreur) {
+                        reject(erreur);
+                    }
+                    resolve(api);
+                })
             })
-        })
-        .catch(res => {
-            res.status(404);
-            res.send({ message: "mauvais mot de passe. " });
-            return;
-        })
-       
+            .catch(res => {
+                res.status(404);
+                res.send({ message: "mauvais mot de passe. " });
+                return;
+            })
+
 
     })
 }
