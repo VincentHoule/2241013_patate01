@@ -51,9 +51,8 @@ Utilisateurs.validationCle = (cleApi) => {
 
 Utilisateurs.bonneCle = (cleApi, id) => {
     return new Promise((resolve, reject) => {
-        const cle_api = cleApi.split(' ')[1];
         const requete = `SELECT * FROM utilisateurs WHERE id = $1 AND cle_api = $2`;
-        const parametres = [id, cle_api];
+        const parametres = [id, cleApi];
 
         await - sql.query(requete, parametres, (erreur, resultat) => {
             if (erreur) {
