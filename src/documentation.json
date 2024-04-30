@@ -59,7 +59,7 @@
                             "application/json": {
                                 "schema": {
                                     "type": "string",
-                                    "example": "tâches introuvable"
+                                    "example": "Tâches introuvable du l'utilisateur 23"
                                 }
                             }
                         }
@@ -70,7 +70,7 @@
                             "application/json": {
                                 "schema": {
                                     "type": "string",
-                                    "example": "Erreur lors de la récupération des tâches avec l'utilisateur"
+                                    "example": "Erreur lors de la récupération des tâches avec l'utilisateur 23"
                                 }
                             }
                         }
@@ -82,11 +82,98 @@
                                 "schema": {
                                     "type": "object",
                                     "example": {
-                                        "Tâches": [
+                                        "Taches": [
                                             {
-                                                
+                                                "id": 3,
+                                                "utilisateur_id": 1,
+                                                "titre": "laver char parents",
+                                                "description": "frotter fort",
+                                                "date_debut": "2024-04-25T00:00:00.000Z",
+                                                "date_echeance": "2024-04-30T00:00:00.000Z",
+                                                "complete": false
                                             }
-                                        ]
+                                        ],
+                                        "Nombre_de_Taches": 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tachesMemoire/taches/listesComplete": {
+            "get": {
+                "description": "Retourne la liste des tâches d'un utilisateur",
+                "summary": "Liste des tâches",
+                "tags": [
+                    "SELECT"
+                ],
+                "parameters": [
+                    {
+                        "name": "utilisateur_id",
+                        "in": "params",
+                        "description": "permet de choisir l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Lorsque le format des attributs n'est pas respecté",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "L'id ne doit pas être vide"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Lorsqu'aucune tâches est affecté à l'utilisateur",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Tâches introuvable du l'utilisateur 23"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Lorsque la requête sql échoue",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Erreur lors de la récupération des tâches avec l'utilisateur 23"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "La liste des tâches selon l'utilisateur",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "Taches": [
+                                            {
+                                                "id": 3,
+                                                "utilisateur_id": 1,
+                                                "titre": "laver char parents",
+                                                "description": "frotter fort",
+                                                "date_debut": "2024-04-25T00:00:00.000Z",
+                                                "date_echeance": "2024-04-30T00:00:00.000Z",
+                                                "complete": false
+                                            }
+                                        ],
+                                        "Nombre_de_Taches": 1
                                     }
                                 }
                             }
@@ -121,13 +208,23 @@
                                 "schema": {
                                     "type": "object",
                                     "example": {
-                                        "id": 1033,
-                                        "nom": "Frosmoth",
-                                        "type_primaire": "Ice",
-                                        "type_secondaire": "Bug",
-                                        "pv": 70,
-                                        "attaque": 65,
-                                        "defense": 60
+                                        "Tache": {
+                                            "id": 3,
+                                            "utilisateur_id": 1,
+                                            "titre": "laver char parent",
+                                            "description": "frotter fort",
+                                            "date_debut": "2024-04-25T00:00:00.000Z",
+                                            "date_echeance": "2024-04-30T00:00:00.000Z",
+                                            "complete": false
+                                        },
+                                        "SousTaches": [
+                                            {
+                                                "id": 1,
+                                                "tache_id": 3,
+                                                "titre": "cirer plus fort",
+                                                "complete": true
+                                            }
+                                        ]
                                     }
                                 }
                             }
@@ -150,7 +247,7 @@
                             "application/json": {
                                 "schema": {
                                     "type": "string",
-                                    "example": "tâches introuvable"
+                                    "example": "tâches introuvable avec l'id 1. "
                                 }
                             }
                         }
@@ -161,7 +258,7 @@
                             "application/json": {
                                 "schema": {
                                     "type": "string",
-                                    "example": "Erreur lors de la récupération de la tâches"
+                                    "example": "Erreur lors de la récupération des tâche avec l'id 1. "
                                 }
                             }
                         }
@@ -169,8 +266,8 @@
                 }
             },
             "put": {
-                "description": "Modifier les attributs d'une tâches",
-                "summary": "Update d'une tâches",
+                "description": "Modifier les attributs d'une tâche",
+                "summary": "Update d'une tâche",
                 "tags": [
                     "UPDATE"
                 ],
@@ -178,83 +275,75 @@
                     {
                         "name": "id",
                         "in": "params",
-                        "description": "permet de choisir le pokemon a modifié",
+                        "description": "permet de choisir l'id de la tâche",
                         "required": true,
                         "schema": {
                             "type": "integer"
                         }
                     },
                     {
-                        "name": "nom",
+                        "name": "titre",
                         "in": "body",
-                        "description": "permet de changer le nom",
+                        "description": "permet de changer le titre",
                         "required": true,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "type_primaire",
+                        "name": "description",
                         "in": "body",
-                        "description": "permet de changer le type primaire",
+                        "description": "permet de changer la description",
                         "required": true,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "type_secondaire",
+                        "name": "date_debut",
                         "in": "body",
-                        "description": "permet de changer le type secondaire",
+                        "description": "permet de changer la date de début",
                         "required": true,
                         "schema": {
                             "type": "string"
                         }
                     },
                     {
-                        "name": "pv",
+                        "name": "date_echeance",
                         "in": "body",
-                        "description": "permet de changer les pv",
+                        "description": "permet de changer la date de début",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     },
                     {
-                        "name": "attque",
+                        "name": "complete",
                         "in": "body",
-                        "description": "permet de changer l'attaque",
+                        "description": "permet de changer le statut de la tâche",
                         "required": true,
                         "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "defenses",
-                        "in": "body",
-                        "description": "permet de changer la défense",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
+                            "type": "boolean"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Le nouveaux pokemon qui a été modifier",
+                        "description": "La tâche a été modifier",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "example": {
-                                        "Message": "Le pokemon id 2 a été modifié avec succès",
-                                        "Pokemons": {
-                                            "nom": "Cooky",
-                                            "type_primaire": "roche",
-                                            "type_secondaire": "obèse",
-                                            "pv": 92,
-                                            "attaque": 20,
-                                            "defense": 150
+                                        "Message": "La tâche laver char parent a été modifié avec succès. ",
+                                        "Tache": {
+                                            "id": 3,
+                                            "utilisateur_id": 1,
+                                            "titre": "laver char parent",
+                                            "description": "frotter fort",
+                                            "date_debut": "2024-04-25T00:00:00.000Z",
+                                            "date_echeance": "2024-04-30T00:00:00.000Z",
+                                            "complete": false
                                         }
                                     }
                                 }
@@ -268,7 +357,21 @@
                                 "schema": {
                                     "type": "object",
                                     "example": {
-                                        "message": "Le nom est vide, manquant ou invalide. Le type primaire est vide, manquant ou invalide. Le type secondaire est manquant ou invalide. Les pv est vide ou invalide. L'attaque est vide ou invalide. La defense est vide ou invalide. "
+                                        "message": "Le nom est vide, manquant ou invalide. "
+                                    }
+                                }
+                            }
+                        }
+                        
+                    },                    
+                    "404": {
+                        "description": "Si la tâche n'existe pas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "message": "tâches introuvable 4"
                                     }
                                 }
                             }
@@ -280,7 +383,7 @@
                             "application/json": {
                                 "schema": {
                                     "type": "string",
-                                    "example": "Erreur lors de la modification"
+                                    "example": "Erreur lors de la modification. "
                                 }
                             }
                         }
@@ -288,8 +391,8 @@
                 }
             },
             "delete": {
-                "description": "Supprime un pokemon de la base de données",
-                "summary": "DELETE Pokemon",
+                "description": "Supprime une tâche de la base de données",
+                "summary": "DELETE tache",
                 "tags": [
                     "DELETE"
                 ],
@@ -297,7 +400,7 @@
                     {
                         "name": "id",
                         "in": "params",
-                        "description": "permet de choisir le pokemon a supprimé",
+                        "description": "permet de choisir la tâche a supprimé",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -312,8 +415,16 @@
                                 "schema": {
                                     "type": "objet",
                                     "example": {
-                                        "Message": "Le pokemon id 1 a été supprimé avec succès",
-                                        "Pokemon": {}
+                                        "Message": "La tache Brosser le chat a été supprimé avec succès. ",
+                                        "Tache": {
+                                            "id": 6,
+                                            "utilisateur_id": 1,
+                                            "titre": "Brosser le chat",
+                                            "description": "il faut brosser Cooky",
+                                            "date_debut": "2024-04-24T00:00:00.000Z",
+                                            "date_echeance": "2024-04-28T00:00:00.000Z",
+                                            "complete": false
+                                        }
                                     }
                                 }
                             }
@@ -324,8 +435,23 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "string",
-                                    "example": "L'id du pokemon est obligatoire et doit être supérieur à 0"
+                                    "type": "objet",
+                                    "example": {
+                                        "message": "L'id du la tâche est obligatoire et doit être supérieur à 0. "
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tâche introuvable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "objet",
+                                    "example": {
+                                        "message": "Tâches introuvable 1. "
+                                    }
                                 }
                             }
                         }
@@ -342,68 +468,66 @@
                         }
                     }
                 }
-            }
-        },
-        "/api/pokemon": {
-            "post": {
-                "description": "Ajoute un pokemon dans la liste",
-                "summary": "INSERT un pokemon",
+            },
+            "patch": {
+                "description": "Modifi la propriété complete de la tâche",
+                "summary": "UPDATE une tâche",
                 "tags": [
-                    "INSERT"
+                    "UPDATE"
                 ],
                 "parameters": [
                     {
-                        "name": "nom",
-                        "in": "body",
-                        "description": "permet de changer le nom",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "type_primaire",
-                        "in": "body",
-                        "description": "permet de changer le type primaire",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "type_secondaire",
-                        "in": "body",
-                        "description": "permet de changer le type secondaire",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "pv",
-                        "in": "body",
-                        "description": "permet de changer les pv",
+                        "name": "id",
+                        "in": "params",
+                        "description": "permet de choisir l'id de la tâche",
                         "required": true,
                         "schema": {
                             "type": "integer"
                         }
                     },
                     {
-                        "name": "attque",
+                        "name": "titre",
                         "in": "body",
-                        "description": "permet de changer l'attaque",
+                        "description": "permet de changer le titre",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     },
                     {
-                        "name": "defenses",
+                        "name": "description",
                         "in": "body",
-                        "description": "permet de changer la défense",
+                        "description": "permet de changer la description",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date_debut",
+                        "in": "body",
+                        "description": "permet de changer la date de début",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date_echeance",
+                        "in": "body",
+                        "description": "permet de changer la date de début",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "complete",
+                        "in": "body",
+                        "description": "permet de changer le statut de la tâche",
+                        "required": true,
+                        "schema": {
+                            "type": "boolean"
                         }
                     }
                 ],
@@ -415,14 +539,124 @@
                                 "schema": {
                                     "type": "object",
                                     "example": {
-                                        "Info": "Le pokemon a été ajouté avec succès",
-                                        "Pokemon": {
-                                            "nom": "Cooky",
-                                            "type_primaire": "Rock",
-                                            "type_secondaire": "Stone",
-                                            "pv": 92,
-                                            "attaque": 20,
-                                            "defense": 150
+                                        "Info": "La tâche a été ajouté avec succès. ",
+                                        "Tâche": {
+                                            "utilisateur_id": 1,
+                                            "titre": "Brosser le chat",
+                                            "description": "il faut brosser Cooky",
+                                            "date_debut": "2024-04-24",
+                                            "date_echeance": "2024-04-28",
+                                            "complete": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Retourne quel champs n'est pas valide",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Le nom est vide, manquant ou invalide. Le type primaire est vide, manquant ou invalide. Le type secondaire est manquant ou invalide. Les pv est vide ou invalide. L'attaque est vide ou invalide. La defense est vide ou invalide. "
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Retourne information de l'échec de l'insert",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Erreur lors de l'insertion"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tachesMemoire/taches/": {
+            "post": {
+                "description": "Ajoute une tâche à un utilisateur",
+                "summary": "INSERT une tâche",
+                "tags": [
+                    "INSERT"
+                ],
+                "parameters": [
+                    {
+                        "name": "utilisateur_id",
+                        "in": "params",
+                        "description": "permet de choisir l'utilisateur",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "titre",
+                        "in": "body",
+                        "description": "permet de changer le titre",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "body",
+                        "description": "permet de changer la description",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date_debut",
+                        "in": "body",
+                        "description": "permet de changer la date de début",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date_echeance",
+                        "in": "body",
+                        "description": "permet de changer la date de début",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "complete",
+                        "in": "body",
+                        "description": "permet de changer le statut de la tâche",
+                        "required": true,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne la confirmation de la réussite de l'insertion",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "Info": "La tâche a été ajouté avec succès. ",
+                                        "Tâche": {
+                                            "utilisateur_id": 1,
+                                            "titre": "Brosser le chat",
+                                            "description": "il faut brosser Cooky",
+                                            "date_debut": "2024-04-24",
+                                            "date_echeance": "2024-04-28",
+                                            "complete": false
                                         }
                                     }
                                 }

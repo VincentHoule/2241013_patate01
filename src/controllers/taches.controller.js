@@ -67,7 +67,7 @@ exports.listeTache = (req, res) => {
             if (!Taches[0]) {
                 res.status(404);
                 res.send({
-                    message: `Tâches introuvable ${req.params.utilisateur_id}. `
+                    message: `Tâches introuvable du l'utilisateur${req.params.utilisateur_id}. `
                 });
                 return;
             }
@@ -148,7 +148,7 @@ exports.ajouterTache = (req, res) => {
     }
     // Envoie du message d'erreur
     if (message != "") {
-        res.status(404);
+        res.status(400);
         res.send({ message: `${message}` });
         return;
     }
