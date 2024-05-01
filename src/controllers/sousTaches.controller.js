@@ -51,7 +51,7 @@ exports.modifierSousTache = (req, res) => {
         message += "L'id de la sous-tâche est obligatoire et doit être supérieur à 0. ";
     }
     if (message != "") {
-        res.status(404);
+        res.status(400);
         res.send({ message: `${message}` });
         return;
     }

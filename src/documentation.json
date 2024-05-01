@@ -688,6 +688,265 @@
                 }
             }
         },
+        "/tachesMemoire/SousTaches/:id": {
+            "put": {
+                "description": "Modify une sous-tâches",
+                "summary": "UPDATE une sous-tâche",
+                "tags": [
+                    "UPDATE"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "params",
+                        "description": "permet de choisir la sous-tâche",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "tache_id",
+                        "in": "body",
+                        "description": "permet de changer la tâche parent",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "titre",
+                        "in": "body",
+                        "description": "permet de changer le titre de la sous-tâche",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "complete",
+                        "in": "body",
+                        "description": "permet de changer le statut de la tâche",
+                        "required": true,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne la confirmation de la réussite de la modification",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "Message": "La sous-tâche cirer plus fort a été modifié avec succès",
+                                        "SousTache": {
+                                            "id": 1,
+                                            "tache_id": 3,
+                                            "titre": "cirer plus fort",
+                                            "complete": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Retourne quel champs n'est pas valide",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": {
+                                        "message": "L'id de la tâches est obligatoire et doit être supérieur à 0. "
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "tâche est inexistante",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": {
+                                        "message": {
+                                            "message": "tâches introuvable 30"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Échec de la requête sql",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Erreur lors de la requête"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Modifit le statut une sous-tâches",
+                "summary": "UPDATE une sous-tâche",
+                "tags": [
+                    "UPDATE"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "params",
+                        "description": "permet de choisir la sous-tâche",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne la confirmation de la réussite de la modification",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "Message": "La sous-tâche cirer plus fort a été modifié avec succès, elle est  true. ",
+                                        "SousTache": {
+                                            "id": 1,
+                                            "tache_id": 3,
+                                            "titre": "cirer plus fort",
+                                            "complete": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Sous=tâches inexistante",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": {
+                                        "message": "tâches introuvable 10"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Sous=tâches inexistante",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": {
+                                        "message": "tâches introuvable 10"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Échec de la requête sql",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Erreur lors de la requête"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Supprime une sous-tâches",
+                "summary": "DELETE une sous-tâche",
+                "tags": [
+                    "DELETE"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "params",
+                        "description": "permet de choisir la sous-tâche",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retourne la confirmation de la réussite de la suppression",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "example": {
+                                        "Message": "La sous-tâche cirer plus fort a été supprimé avec succès. ",
+                                        "SousTache": {
+                                            "id": 1,
+                                            "tache_id": 3,
+                                            "titre": "cirer plus fort",
+                                            "complete": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Sous=tâches inexistante",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": {
+                                        "message": "sous tâches introuvable 1. "
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Sous=tâches inexistante",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": {
+                                        "message": "tâches introuvable 10"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Échec de la requête sql",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Erreur lors de la requête"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/tachesMemoire/utilisateurs/": {
             "post": {
                 "description": "Ajoute un utilisateur",
@@ -915,6 +1174,9 @@
                         },
                         "tache_id": {
                             "type": "integer"
+                        },
+                        "titre" : {
+                            "type" : "string"
                         },
                         "complete": {
                             "type": "boolean"
