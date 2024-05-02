@@ -323,7 +323,7 @@
                         "description": "permet de changer le statut de la tâche",
                         "required": true,
                         "schema": {
-                            "type": "boolean"
+                            "type": "bool"
                         }
                     }
                 ],
@@ -527,7 +527,7 @@
                         "description": "permet de changer le statut de la tâche",
                         "required": true,
                         "schema": {
-                            "type": "boolean"
+                            "type": "bool"
                         }
                     }
                 ],
@@ -637,7 +637,7 @@
                         "description": "permet de changer le statut de la tâche",
                         "required": true,
                         "schema": {
-                            "type": "boolean"
+                            "type": "bool"
                         }
                     }
                 ],
@@ -729,7 +729,7 @@
                         "description": "permet de changer le statut de la tâche",
                         "required": true,
                         "schema": {
-                            "type": "boolean"
+                            "type": "bool"
                         }
                     }
                 ],
@@ -1154,7 +1154,7 @@
                             "type": "string"
                         },
                         "complete": {
-                            "type": "boolean"
+                            "type": "bool"
                         }
                     }
                 }
@@ -1179,7 +1179,7 @@
                             "type" : "string"
                         },
                         "complete": {
-                            "type": "boolean"
+                            "type": "bool"
                         }
                     }
                 }
