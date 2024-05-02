@@ -31,7 +31,7 @@ exports.ajouterUnUtilisateur = (req, res) => {
         .then((resultat) => {
 
             res.send({
-                Message: "Utilisateur créé",
+                message: "Utilisateur créé",
                 cle_api: resultat
             })
         })
