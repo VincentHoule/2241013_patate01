@@ -13,7 +13,7 @@ const swaggerOptions = {
 
 const app = express();
 const PORT = 3000;
-var cors = require('cors')
+const cors = require('cors')
 /*
 const fs = require('fs')
 const morgan = require('morgan');
@@ -22,7 +22,12 @@ const accessLog = fs.createWriteStream(chemin.join(__dirname, 'access.log'), { f
 
 app.use(morgan(':date[clf] :method :url :status :res[content-length] - :response-time ms', { stream: accessLog }));
 */
-app.use(cors())
+app.use(
+    cors({
+      "Access-Control-Allow-Origin": "*",
+      "Allow-Methods": "GET, POST, DELETE, FETCH",
+    })
+  );
 app.use('/tachesMemoire/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
 app.use(express.json());
 app.use('/tachesMemoire/taches', require('./src/routes/taches'));
