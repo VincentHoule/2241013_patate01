@@ -1106,12 +1106,8 @@
                                 "schema": {
                                     "type": "object",
                                     "example": {
-                                        "Tâches": [
-                                            {
-                                                "Message": "Utilisateur créé",
-                                                "cle_api": "826c19f6-4bfc-4351-9e1f-3b5dcd225dc7"
-                                            }
-                                        ]
+                                        "Message": "Utilisateur créé",
+                                        "cle_api": "96a79751-1923-4525-b77c-2f88e1273777"
                                     }
                                 }
                             }

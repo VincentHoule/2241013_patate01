@@ -310,9 +310,10 @@ exports.supprimerTache = (req, res) => {
             if (!resultat[0]) {
                 res.status(404);
                 res.send({
-                    message: `Tâches introuvable ${req.params.id}. `
+                    message: `tâches introuvable ${req.params.id}. `
                 });
                 return;
+
             }
 
             Taches.supprimerTache(req.params.id)
