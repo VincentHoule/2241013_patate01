@@ -22,14 +22,10 @@ const accessLog = fs.createWriteStream(chemin.join(__dirname, 'access.log'), { f
 
 app.use(morgan(':date[clf] :method :url :status :res[content-length] - :response-time ms', { stream: accessLog }));
 */
-app.use(
-    cors({
-      "Access-Control-Allow-Origin": "*",
-      "Allow-Methods": "GET, POST, DELETE, FETCH",
-    })
-  );
-app.use('/tachesMemoire/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
 app.use(express.json());
+app.use(cors())
+app.use('/tachesMemoire/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
+
 app.use('/tachesMemoire/taches', require('./src/routes/taches'));
 app.use('/tachesMemoire/sousTaches', require('./src/routes/sousTaches'));
 app.use('/tachesMemoire/utilisateurs', require('./src/routes/utilisateurs'));
