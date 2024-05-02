@@ -1038,7 +1038,7 @@
             }
         },
         "/tachesMemoire/utilisateurs/cle": {
-            "get": {
+            "post": {
                 "description": "Permet de voir sa cle d'api",
                 "summary": "SELECT utilisateur",
                 "tags": [
