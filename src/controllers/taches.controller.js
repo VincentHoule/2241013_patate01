@@ -196,7 +196,7 @@ exports.completeTache = (req, res) => {
 
             }
 
-            Taches.completeTache(!resultat[0].complete)
+            Taches.completeTache(!resultat[0].complete, req.params.id)
                 .then(() => {
                     // Envoie du succès de la requete
                     resultat[0].complete = !resultat[0].complete

@@ -539,14 +539,15 @@
                                 "schema": {
                                     "type": "object",
                                     "example": {
-                                        "Info": "La tâche a été ajouté avec succès. ",
-                                        "Tâche": {
+                                        "Message": "La tâche laver char parent a été modifié avec succès, elle est true. ",
+                                        "Tache": {
+                                            "id": 3,
                                             "utilisateur_id": 1,
-                                            "titre": "Brosser le chat",
-                                            "description": "il faut brosser Cooky",
-                                            "date_debut": "2024-04-24",
-                                            "date_echeance": "2024-04-28",
-                                            "complete": false
+                                            "titre": "laver char parent",
+                                            "description": "frotter fort",
+                                            "date_debut": "2024-04-25T00:00:00.000Z",
+                                            "date_echeance": "2024-04-30T00:00:00.000Z",
+                                            "complete": true
                                         }
                                     }
                                 }

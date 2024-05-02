@@ -101,11 +101,11 @@ Taches.modifierTache = (titre, description, date_debut, date_echeance, complete,
     });
 };
 
-Taches.completeTache = (status) => {
+Taches.completeTache = (status,id) => {
     return new Promise((resolve, reject) => {
 
-        const requete = 'UPDATE taches SET complete = $1;';
-        const params = [status];
+        const requete = 'UPDATE taches SET complete = $1 WHERE id = $2;';
+        const params = [status,id];
 
         sql.query(requete, params, (erreur, resultat) => {
             if (erreur) {
