@@ -25,8 +25,13 @@ app.use(morgan('combined', {
     },
     stream: fs.createWriteStream(chemin.join(__dirname, 'access.log'), { flags: 'a' })
 }))
+app.use(
+    cors({
+      "Access-Control-Allow-Origin": "*",
+      "Allow-Methods": "GET, POST, DELETE, FETCH",
+    })
+  );
 app.use(express.json());
-app.use(cors())
 app.use('/tachesMemoire/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
 
 app.use('/tachesMemoire/taches', require('./src/routes/taches'));
