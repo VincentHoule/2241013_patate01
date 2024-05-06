@@ -121,9 +121,11 @@ Taches.completeTache = (status,id) => {
 Taches.supprimerTache = (id) => {
     return new Promise((resolve, reject) => {
 
+        const requete2 = 'DELETE FROM sous-taches WHERE tache_id = $1'
         const requete = 'DELETE FROM taches WHERE id = $1;';
         const params = [id];
 
+        sql.query(requete2, params);
         sql.query(requete, params, (erreur, resultat) => {
             if (erreur) {
                 // S'il y a une erreur, je la retourne avec reject()
