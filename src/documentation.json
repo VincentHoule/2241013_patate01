@@ -196,7 +196,8 @@
                         "description": "permet de choisir la tâche",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example" : 2
                         }
                     }
                 ],
@@ -278,7 +279,8 @@
                         "description": "permet de choisir l'id de la tâche",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example": 2
                         }
                     },
                     {
@@ -403,7 +405,8 @@
                         "description": "permet de choisir la tâche a supprimé",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example" : 2
                         }
                     }
                 ],
@@ -482,7 +485,8 @@
                         "description": "permet de choisir l'id de la tâche",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example" : 2
                         }
                     },
                     {
@@ -491,7 +495,8 @@
                         "description": "permet de changer le titre",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example" : "patate"
                         }
                     },
                     {
@@ -500,7 +505,8 @@
                         "description": "permet de changer la description",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example" : "description"
                         }
                     },
                     {
@@ -509,7 +515,8 @@
                         "description": "permet de changer la date de début",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example" : "2024-05-09"
                         }
                     },
                     {
@@ -518,7 +525,8 @@
                         "description": "permet de changer la date de début",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example" : "2024-05-19"
                         }
                     },
                     {
@@ -527,7 +535,8 @@
                         "description": "permet de changer le statut de la tâche",
                         "required": true,
                         "schema": {
-                            "type": "bool"
+                            "type": "bool",
+                            "example" : false
                         }
                     }
                 ],
@@ -593,7 +602,8 @@
                         "description": "permet de choisir l'utilisateur",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example" : 2
                         }
                     },
                     {
@@ -602,7 +612,8 @@
                         "description": "permet de changer le titre",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example" : "titre"
                         }
                     },
                     {
@@ -611,7 +622,8 @@
                         "description": "permet de changer la description",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example" : "description"
                         }
                     },
                     {
@@ -620,7 +632,8 @@
                         "description": "permet de changer la date de début",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example" : "2034-05-02"
                         }
                     },
                     {
@@ -629,7 +642,8 @@
                         "description": "permet de changer la date de début",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example" : "2999-04-02"
                         }
                     },
                     {
@@ -638,7 +652,8 @@
                         "description": "permet de changer le statut de la tâche",
                         "required": true,
                         "schema": {
-                            "type": "bool"
+                            "type": "bool",
+                            "example" : false
                         }
                     }
                 ],
@@ -703,7 +718,8 @@
                         "description": "permet de choisir la sous-tâche",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example" : 2
                         }
                     },
                     {
@@ -712,7 +728,8 @@
                         "description": "permet de changer la tâche parent",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example" : 3
                         }
                     },
                     {
@@ -721,7 +738,8 @@
                         "description": "permet de changer le titre de la sous-tâche",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example" : "titre"
                         }
                     },
                     {
@@ -730,7 +748,8 @@
                         "description": "permet de changer le statut de la tâche",
                         "required": true,
                         "schema": {
-                            "type": "bool"
+                            "type": "bool",
+                            "example" : false
                         }
                     }
                 ],
@@ -808,7 +827,8 @@
                         "description": "permet de choisir la sous-tâche",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example" : 19
                         }
                     }
                 ],
@@ -884,7 +904,8 @@
                         "description": "permet de choisir la sous-tâche",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example" : 25
                         }
                     }
                 ],
@@ -962,7 +983,8 @@
                         "description": "permet de donner un nom",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example" : "Jean"
                         }
                     },
                     {
@@ -971,7 +993,8 @@
                         "description": "permet de donner un prenom",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "Paul"
                         }
                     },
                     {
@@ -980,7 +1003,8 @@
                         "description": "permet de donner un courriel et de s'indentifier",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "uncourriel"
                         }
                     },
                     {
@@ -989,7 +1013,8 @@
                         "description": "permet de donner un mot de passe et de s'indentifier",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example" : "pas1234"
                         }
                     }
                     
@@ -1052,7 +1077,8 @@
                         "description": "permet de trouver l'utilisateur",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example" : "courrielgaming"
                         }
                     },
                     {
@@ -1061,7 +1087,8 @@
                         "description": "permet de valider l'utilisateur",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "example" : "pasnonplusabcde"
                         }
                     }
                 ],
