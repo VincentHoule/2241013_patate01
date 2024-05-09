@@ -749,7 +749,7 @@
                         "required": true,
                         "schema": {
                             "type": "bool",
-                            "example" : "false"
+                            "example" : false
                         }
                     }
                 ],
