@@ -5,7 +5,7 @@
         "summary": "Api qui sert à créer des tâches avec des sous-tâches pour s'en rappeler.",
         "description": "Elle permet de créer des tâches propres à chaque utilisateur et d'y affecter des sous-tâches",
         "contact": {
-            "name": "Vincent HOule",
+            "name": "Vincent Houle",
             "url": "https://www.example.com/support",
             "email": "monadresse@gmail.com"
         },
@@ -527,7 +527,8 @@
                         "description": "permet de changer le statut de la tâche",
                         "required": true,
                         "schema": {
-                            "type": "bool"
+                            "type": "boolean",
+                            "example" : 0
                         }
                     }
                 ],
