@@ -527,8 +527,7 @@
                         "description": "permet de changer le statut de la tâche",
                         "required": true,
                         "schema": {
-                            "type": "boolean",
-                            "example" : 0
+                            "type": "boolean"
                         }
                     }
                 ],
